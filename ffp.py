@@ -35,6 +35,13 @@ class Heuristics(enum.Enum):
     GDEG = 2
 
 
+class DebugOptions(enum.Enum):
+    NONE = 0
+    PRINTS = 1
+    MANUAL_OPTIMIZATION = 2
+    AUTO_OPTIMIZATION = 3
+
+
 def criticalError(class_name, func_name, message):
     print("=====================")
     print("Critical error at " + class_name + "." + func_name)
@@ -144,7 +151,7 @@ class FFP:
         burned = self.getFeature(Features.BURNING_NODES_NUM)
         saved = self.n - burned
         percentSaved = (self.n - burned) / self.n
-        return "Saved: " + str(saved) + " (" + str(percentSaved) + "%)"
+        return "Saved: " + str(saved) + " (" + str(percentSaved*100) + "%)"
 
     # Selects the next node to protect by a firefighter
     #   heuristic = A string with the name of one available heuristic
@@ -398,12 +405,14 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
     #   heuristics = A list with the names of the heuristics to be used by this hyper-heuristic
     #   ffp = the ffp root instance at turn 0
     #   weights = A dictionary of weight vectors on the features
-    def __init__(self, features, heuristics, ffp, weights):
+    def __init__(self, features, heuristics, ffp, weights, debugOptions=DebugOptions.NONE):
         super().__init__(features, heuristics, ffp)
         self.weights = weights
 
         self.frontier = [self.root]
         self.explored = []
+
+        self.debugOptions = debugOptions
 
     # Returns the next heuristic to use
     #   problem = The FFP instance being solved
@@ -431,8 +440,13 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
             newNode = Node(ffp_, node, heuristic)
             if self.foundSolution:
                 self.solutionNode = newNode
-            newNode.setHCost(self.calculateHCost(ffp_, newNode, node, heuristic))
+
+            hCost, extraInfo = self.calculateHCost(newNode, node, heuristic)
+            newNode.setHCost(hCost)
             self.addToFrontierAndTree(newNode, node)
+
+            if self.debugOptions != DebugOptions.NONE:
+                self.printNodeDetails(newNode, extraInfo)
 
     # Returns the string representation of this hyper-heuristic
     def __str__(self):
@@ -493,12 +507,12 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
         burned = solNode.ffp.getFeature(Features.BURNING_NODES_NUM)
         saved = solNode.ffp.n - burned
         percentSaved = (solNode.ffp.n - burned) / solNode.ffp.n
-        savedString = "Saved: " + str(saved) + " (" + str(percentSaved) + "%)"
+        savedString = "Saved: " + str(saved) + " (" + str(percentSaved*100) + "%)"
 
         return self.formatSolution(solNode.parent.name, solNode, solNode.name) + "\n" + savedString
         # return self.formatSolution(solNode.parent.quickName, solNode, solNode.quickName) + "\n" + savedString
 
-    def calculateHCost(self, ffp_, currentNode, parentNode, heuristic):
+    def calculateHCost(self, currentNode, parentNode, heuristic):
         featureList = []
         heuristicWeights = self.weights[heuristic]
 
@@ -514,7 +528,7 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
             if feature == RatesOfChange.NEW_FIRES:  # 1
                 featureList.append(currentNode.ffp.getFeature(Features.BURNING_NODES_NUM)
                                    - parentNode.ffp.getFeature(Features.BURNING_NODES_NUM))
-            elif feature == RatesOfChange.FIRE_PER_INC:  # 2
+            elif feature == RatesOfChange.FIRE_PER_INC:  # 2X1 Do not include alongside 1
                 featureList.append(currentNode.ffp.getFeature(Features.BURNING_NODES_PER)
                                    - parentNode.ffp.getFeature(Features.BURNING_NODES_PER))
             elif feature == RatesOfChange.NEW_VULNERABLE:  # 3
@@ -526,7 +540,7 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
             elif feature == RatesOfChange.VULNERABLE_DEGREE_INC:  # 5
                 featureList.append(max(currentNode.ffp.getFeature(Features.VULNERABLE_DEGREE)
                                    - parentNode.ffp.getFeature(Features.VULNERABLE_DEGREE), 0))
-            elif feature == RatesOfChange.VULNERABLE_PER_INC:  # 6
+            elif feature == RatesOfChange.VULNERABLE_PER_INC:  # 6X4 Do not include alongside 4
                 featureList.append(currentNode.ffp.getFeature(Features.VULNERABLE_NODES_PER)
                                    - parentNode.ffp.getFeature(Features.VULNERABLE_NODES_PER))
             elif feature == RatesOfChange.VULNERABLE_PER_SAFE_INC:  # 7
@@ -539,8 +553,9 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
             criticalError(__class__.__name__, __name__, "Incompatible parameter size between features and weights")
 
         # We want to keep the current values separate to get a guess on the actual rate of increase
-        for i in range(len(featureList)):
-            featureList[i] *= heuristicWeights[i]
+        sumList = [0] * len(featureList)
+        for i in range(len(sumList)):
+            sumList[i] = featureList[i] * heuristicWeights[i]
 
         # TODO: Change to average or average no 0s? what is the best predictor on remaining turns...
         # Because at the beginning it will spread slowly and we dont want that to be too much of a difference
@@ -549,10 +564,67 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
         rateOfIncrease = max(featureList)
 
         # The 1 is how many firefighters there are per turn, could change for different problems
-        predictedTurnsUntilDone = (self.root.ffp.n - (1 + rateOfIncrease)) / (1 + rateOfIncrease)
+        # predictedTurnsUntilDone = (self.root.ffp.n - (1 + rateOfIncrease)) / (1 + rateOfIncrease)
+        # safe / rate = turns left
+        predictedTurnsUntilDone = (self.root.ffp.n - currentNode.ffp.getFeature(Features.BURNING_NODES_NUM)) \
+                                  / (1 + rateOfIncrease)
 
-        return sum(featureList) * predictedTurnsUntilDone
+        # First is the hCost, the rest are for optimization and debug reasons
+        return sum(sumList) * predictedTurnsUntilDone, [featureList, heuristicWeights, predictedTurnsUntilDone]
 
+    def printNodeDetails(self, newNode, debugInfo):
+        if self.debugOptions == DebugOptions.MANUAL_OPTIMIZATION:
+            level = 0
+            tempNode = newNode
+            while tempNode != self.root:
+                level += 1
+                tempNode = tempNode.parent
+
+            print("\n")
+            print("Node is at level " + str(level) + ", having just used " + newNode.heuristic.name)
+            print(newNode.name)
+            print("With Features: ")
+
+            sumList = [0] * len(debugInfo[0])
+            for i, feature in enumerate(self.features):
+                text = ""
+                text += "\t" + feature.name + ":"
+                while len(text) < 30:
+                    text += " "
+                text += str(round(debugInfo[0][i], 2)) + " * " + str(debugInfo[1][i]) + " = " + \
+                        str(round(debugInfo[0][i] * debugInfo[1][i], 2))
+                sumList[i] = round(debugInfo[0][i] * debugInfo[1][i], 2)
+                print(text)
+            print("Sum: " + str(sum(sumList)))
+            print("With remaining predicted turns of: " + str(round(debugInfo[2], 2)))
+            print("H-Cost: " + str(round(newNode.hCost)))
+            print("G-Cost: " + str(newNode.gCost))
+            print("")
+
+        elif self.debugOptions == DebugOptions.AUTO_OPTIMIZATION:
+            level = 0
+            tempNode = newNode
+            while tempNode != self.root:
+                level += 1
+                tempNode = tempNode.parent
+            print(str(level) + " " + str(" ".join([str(round(x, 2)) for x in debugInfo[0]])) +
+                    " g: " + str(newNode.gCost) + " h: " + str(round(newNode.hCost)) + " f: " +
+                  str(newNode.gCost + round(newNode.hCost)))
+
+
+class MCTSHyperHeuristic(SearchHyperHeuristic):
+
+    def selection(self):
+        pass
+
+    def expand(self):
+        pass
+
+    def simulate(self):
+        pass
+
+    def backpropagate(self):
+        pass
 
 # Tests
 # =====================
@@ -562,7 +634,7 @@ seed = random.randint(0, 1000)
 print("\nRandom Seed: " + str(seed))
 
 
-fileName = "instances/BBGRL/50_ep0.1_0_gilbert_4.in"
+fileName = "instances/BBGRL/50_ep0.1_0_gilbert_10.in"
 print("Graph Used: " + fileName + "\n")
 
 # Solves the problem using heuristic LDEG and one firefighter
@@ -586,12 +658,22 @@ print("GDEG = " + str(problem.solve(Heuristics.GDEG, 1, False)))
 
 print("")
 problem = FFP(fileName)
-hh = AStarHyperHeuristic([RatesOfChange.NEW_FIRES, RatesOfChange.FIRE_PER_INC, RatesOfChange.NEW_VULNERABLE,
-                              RatesOfChange.NEW_UNIQUE_VULNERABLE, RatesOfChange.VULNERABLE_DEGREE_INC,
-                              RatesOfChange.VULNERABLE_PER_INC, RatesOfChange.VULNERABLE_PER_SAFE_INC],
+ratesOfChange = [RatesOfChange.NEW_FIRES, RatesOfChange.FIRE_PER_INC, RatesOfChange.NEW_UNIQUE_VULNERABLE,
+                 RatesOfChange.VULNERABLE_DEGREE_INC, RatesOfChange.VULNERABLE_PER_SAFE_INC]
+suggestedUnitWeights = [0.4, 16.3, 0.53, 5.5, 2.8]  # Correlating to the above
+
+
+ldegWeights = [x*random.uniform(.5, 1.5)*.6 for x in suggestedUnitWeights]
+gdegWeights = [x*random.uniform(.5, 1.5)*.6 for x in suggestedUnitWeights]
+print("ldeg: " + str(", ".join([str(x) for x in ldegWeights])))
+print("gdeg: " + str(", ".join([str(x) for x in gdegWeights])))
+print("")
+
+hh = AStarHyperHeuristic(ratesOfChange,
                          [Heuristics.LDEG, Heuristics.GDEG],
                          problem,
-                         {Heuristics.LDEG: [(0+6)/2] * 7, Heuristics.GDEG: range(7)})
+                         {Heuristics.LDEG: ldegWeights, Heuristics.GDEG: gdegWeights},
+                         DebugOptions.AUTO_OPTIMIZATION)
 
 # print(hh)
 
@@ -601,5 +683,6 @@ while not hh.foundSolution:
 print(hh.formatFromSolutionNode())
 # print("")
 # print(hh.solutionNode.ffp)
-print("")
-print(hh.root)
+# print("")
+# print(hh.root)
+# print(hh.solutionNode.gCost)
