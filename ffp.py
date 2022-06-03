@@ -43,6 +43,20 @@ def criticalError(class_name, func_name, message):
     print("=====================")
     exit(0)
 
+# Not multi-thread safe
+quickNameIter = 0
+def getQuickName():
+    global quickNameIter
+    tempQNI = quickNameIter
+    quickName = ""
+    while tempQNI >= 0:
+        quickName = chr(ord('A') + tempQNI % 26) + quickName
+        tempQNI = int(tempQNI / 26)
+        if tempQNI != 1:
+            tempQNI -= 1
+    quickNameIter += 1
+    return quickName
+
 
 # Provides the methods to create and solve the firefighter problem
 class FFP:
@@ -259,12 +273,18 @@ class FFP:
 
     # Returns the string representation of this problem
     def __str__(self):
-        text = "n = " + str(self.n) + "\n"
-        text += "state = " + str(self.state) + "\n"
+        text = "Number of Nodes = " + str(self.n) + "\n"
+        text += "State = " + str(self.state) + "\n"
+        text += "Connections = \n"
         for i in range(self.n):
+            text += "\t" + str(i) + ":"
             for j in range(self.n):
                 if self.graph[i][j] == 1 and i < j:
-                    text += "\t" + str(i) + " - " + str(j) + "\n"
+                    text += " " + str(j)
+            text += "\n"
+        text += "Burning: " + ", ".join([str(i) for i, item in enumerate(self.state) if item == -1]) + "\n"
+        text += "Protected: " + ", ".join([str(i) for i, item in enumerate(self.state) if item == 1]) + "\n"
+        text += "Untouched: " + ", ".join([str(i) for i, item in enumerate(self.state) if item == 0]) + "\n"
         return text
 
     # ==============
@@ -322,12 +342,21 @@ class Node:
 
         # This is here to quickly compare the states of different nodes, to see if they are the same
         self.name = "".join([str(x) for x in ffp.state])
+        # self.quickName = getQuickName()
 
     def getGCost(self):
         return self.ffp.getFeature(Features.BURNING_NODES_NUM)
 
     def setHCost(self, cost):
         self.hCost = cost
+
+    def __repr__(self, level=0):
+        # text = "\t" * level + repr(self.name) + "\n"
+        # text = "\t" * level + repr(self.quickName) + "\n"
+        text = "\t" * level + repr(getQuickName()) + "\n"
+        for child in self.children:
+            text += child.__repr__(level + 1)
+        return text
 
 
 # Provides the methods to create and use hyper-heuristics for the FFP
@@ -405,10 +434,14 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
             newNode.setHCost(self.calculateHCost(ffp_, newNode, node, heuristic))
             self.addToFrontierAndTree(newNode, node)
 
-    # Returns the string representation of this dummy hyper-heuristic
+    # Returns the string representation of this hyper-heuristic
     def __str__(self):
-        text = "Features:\n\t" + str(self.features) + "\nHeuristics:\n\t" + str(self.heuristics) + "\nRules:\n"
-        # TODO: add stuff to the str
+        text = __class__.__name__ + "\nFeatures:\n"
+        for feature in self.features:
+            text += "\t" + str(feature.name) + "\n"
+        text += "Heuristics and Weights:\n"
+        for heuristic in self.heuristics:
+            text += "\t" + str(heuristic.name) + ": " + ", ".join([str(x) for x in self.weights[heuristic]]) + "\n"
         return text
 
     # Adds a node to the frontier if, and only if it is not contained in the frontier
@@ -445,10 +478,12 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
         if parent is not None:
             for node in self.explored:
                 if node.name == parent:
+                # if node.quickName == parent:
                     if not node.heuristic:
                         return self.formatSolution(None, node, parent + " -> (" +
                                                    str(current.heuristic.name) + ") \n" + solution)
                     return self.formatSolution(node.parent.name, node, parent + " -> (" +
+                    # return self.formatSolution(node.parent.quickName, node, parent + " -> (" +
                                                str(current.heuristic.name) + ") \n" + solution)
         return solution
 
@@ -461,6 +496,7 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
         savedString = "Saved: " + str(saved) + " (" + str(percentSaved) + "%)"
 
         return self.formatSolution(solNode.parent.name, solNode, solNode.name) + "\n" + savedString
+        # return self.formatSolution(solNode.parent.quickName, solNode, solNode.quickName) + "\n" + savedString
 
     def calculateHCost(self, ffp_, currentNode, parentNode, heuristic):
         featureList = []
@@ -526,7 +562,7 @@ seed = random.randint(0, 1000)
 print("\nRandom Seed: " + str(seed))
 
 
-fileName = "instances/BBGRL/50_ep0.1_0_gilbert_3.in"
+fileName = "instances/BBGRL/50_ep0.1_0_gilbert_4.in"
 print("Graph Used: " + fileName + "\n")
 
 # Solves the problem using heuristic LDEG and one firefighter
@@ -555,9 +591,15 @@ hh = AStarHyperHeuristic([RatesOfChange.NEW_FIRES, RatesOfChange.FIRE_PER_INC, R
                               RatesOfChange.VULNERABLE_PER_INC, RatesOfChange.VULNERABLE_PER_SAFE_INC],
                          [Heuristics.LDEG, Heuristics.GDEG],
                          problem,
-                         {Heuristics.LDEG: [(7+1)/2] * 7, Heuristics.GDEG: range(7)})
+                         {Heuristics.LDEG: [(0+6)/2] * 7, Heuristics.GDEG: range(7)})
+
+# print(hh)
 
 while not hh.foundSolution:
     hh.expand()
 
 print(hh.formatFromSolutionNode())
+# print("")
+# print(hh.solutionNode.ffp)
+print("")
+print(hh.root)
