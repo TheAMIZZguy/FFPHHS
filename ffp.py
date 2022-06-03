@@ -344,18 +344,14 @@ class Node:
         self.heuristic = heuristic
 
         self.children = []
-        self.gCost = self.getGCost()
-        self.hCost = 0
+        self.cost = 0
 
         # This is here to quickly compare the states of different nodes, to see if they are the same
         self.name = "".join([str(x) for x in ffp.state])
         # self.quickName = getQuickName()
 
-    def getGCost(self):
-        return self.ffp.getFeature(Features.BURNING_NODES_NUM)
-
-    def setHCost(self, cost):
-        self.hCost = cost
+    def setCost(self, cost):
+        self.cost = cost
 
     def __repr__(self, level=0):
         # text = "\t" * level + repr(self.name) + "\n"
@@ -364,6 +360,48 @@ class Node:
         for child in self.children:
             text += child.__repr__(level + 1)
         return text
+
+class AStarNode(Node):
+    # Constructor
+    #   name = A unique string representing the state of the tree
+    #   parent = The parent node
+    #   heuristic = the heuristic used to get from the parent to here
+    #   ffp = the current instance from the ffp class
+    def __init__(self, ffp, parent, heuristic):
+        super().__init__(ffp, parent, heuristic)
+
+        self.gCost = self.getGCost()
+        self.hCost = 0
+        self.cost = self.gCost  # At the start
+
+        # This is here to quickly compare the states of different nodes, to see if they are the same
+        self.name = "".join([str(x) for x in ffp.state])
+        # self.quickName = getQuickName()
+
+    def getGCost(self):
+        return self.ffp.getFeature(Features.BURNING_NODES_NUM)
+
+    # g Cost is fixed, so also changes the overall cost
+    def setHCost(self, cost):
+        self.hCost = cost
+        self.setCost(self.gCost + self.hCost)
+
+
+class MCTSNode(Node):
+    # Constructor
+    #   name = A unique string representing the state of the tree
+    #   parent = The parent node
+    #   heuristic = the heuristic used to get from the parent to here
+    #   ffp = the current instance from the ffp class
+    def __init__(self, ffp, parent, heuristic):
+        super().__init__(ffp, parent, heuristic)
+
+        self.cost = 0  # At the start
+
+        # This is here to quickly compare the states of different nodes, to see if they are the same
+        self.name = "".join([str(x) for x in ffp.state])
+        # self.quickName = getQuickName()
+
 
 
 # Provides the methods to create and use hyper-heuristics for the FFP
@@ -384,7 +422,7 @@ class SearchHyperHeuristic:
         else:
             criticalError(__class__.__name__, __name__, "The list of heuristics cannot be empty.")
 
-        self.root = Node(ffp, None, None)
+        self.root = AStarNode(ffp, None, None)
         self.foundSolution = False
         self.solutionNode = None
 
@@ -437,7 +475,7 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
             if not ffp_.step(heuristic):
                 self.foundSolution = True
 
-            newNode = Node(ffp_, node, heuristic)
+            newNode = AStarNode(ffp_, node, heuristic)
             if self.foundSolution:
                 self.solutionNode = newNode
 
@@ -613,6 +651,12 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
 
 
 class MCTSHyperHeuristic(SearchHyperHeuristic):
+
+    def __init__(self, features, heuristics, ffp):
+        super().__init__(features, heuristics, ffp)
+
+        self.explored = []
+
 
     def selection(self):
         pass
