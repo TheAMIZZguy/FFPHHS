@@ -403,7 +403,6 @@ class MCTSNode(Node):
         # self.quickName = getQuickName()
 
 
-
 # Provides the methods to create and use hyper-heuristics for the FFP
 # This is a class you must extend it to provide the actual implementation
 # A Search HH is different because it expands the problem like a tree rather than one hh at a time.
@@ -427,7 +426,7 @@ class SearchHyperHeuristic:
         self.solutionNode = None
 
     # Expands the next node on the tree
-    def expand(self):
+    def expand(self, *args):
         criticalError(__class__.__name__, __name__, "The method has not been overriden by a valid subclass.")
 
     # Returns the string representation of this hyper-heuristic
@@ -652,23 +651,78 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
 
 class MCTSHyperHeuristic(SearchHyperHeuristic):
 
-    def __init__(self, features, heuristics, ffp):
+    def __init__(self, features, heuristics, ffp, debugOptions=DebugOptions.NONE):
         super().__init__(features, heuristics, ffp)
 
+        self.debugOptions = debugOptions
         self.explored = []
 
+    def selection(self, currentNode):
+        if len(currentNode.children) == 0:
+            self.expand(currentNode)
 
-    def selection(self):
+        maxValue = 0
+        index = 0
+        for i, node in enumerate(currentNode.children):
+            val = self.calculateUCB(node)
+            if val > maxValue:
+                index = i
+                maxValue = val
+
+        self.expand(currentNode.children[index])
+
+
+    def expand(self, currentNode):
+        self.explored.append(currentNode)
+
+        # expands the node by adding the new layer into the frontier and tree
+        for heuristic in self.heuristics:
+            ffp_ = deepcopy(currentNode.ffp)
+            if not ffp_.step(heuristic):
+                self.foundSolution = True
+
+            newNode = MCTSNode(ffp_, currentNode, heuristic)
+            if self.foundSolution:
+                self.solutionNode = newNode
+
+            self.simulate(self.checkIfExplored(newNode, currentNode))
+
+            if self.debugOptions != DebugOptions.NONE:
+                self.printNodeDetails(newNode)
+
+    # TODO
+    def simulate(self, node):
+        # Make a deepcopy
+        # run it to the ground and get the remaining percentage of saved nodes
+        percentage = 0
+        self.backpropagate(node, percentage)
         pass
 
-    def expand(self):
+    # TODO
+    def backpropagate(self, node, percentage):
         pass
 
-    def simulate(self):
+    def checkIfExplored(self, newNode, parentNode):
+        new = True
+        returnNode = newNode
+
+        for node in self.explored:
+            if node.name == newNode.name:
+                new = False
+                returnNode = node
+
+        if new:
+            parentNode.children.append(newNode)
+
+        return returnNode
+
+    # TODO
+    def printNodeDetails(self, newNode):
+        pass
+    # TODO
+    def calculateUCB(self, node):
         pass
 
-    def backpropagate(self):
-        pass
 
 # Tests
 # =====================
