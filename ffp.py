@@ -652,13 +652,14 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
         # Because at the beginning it will spread slowly and we dont want that to be too much of a difference
         # Or should we consider a second derivative of rate of change
         # (i.e. look at how the rate of change has changed between two time-steps)
-        rateOfIncrease = max(featureList)
+        # rateOfIncrease = max(sum(sumList), featureList)
+        rateOfIncrease = sum(sumList)
 
         # The 1 is how many firefighters there are per turn, could change for different problems
         # predictedTurnsUntilDone = (self.root.ffp.n - (1 + rateOfIncrease)) / (1 + rateOfIncrease)
         # safe / rate = turns left
-        predictedTurnsUntilDone = (self.root.ffp.n - currentNode.ffp.getFeature(Features.BURNING_NODES_NUM)) \
-                                  / (1 + rateOfIncrease)
+        predictedTurnsUntilDone = (self.root.ffp.n - currentNode.ffp.getFeature(
+            Features.BURNING_NODES_NUM)) / (1 + rateOfIncrease)
 
         # First is the hCost, the rest are for optimization and debug reasons
         return sum(sumList) * predictedTurnsUntilDone, [featureList, heuristicWeights, predictedTurnsUntilDone]
@@ -782,8 +783,9 @@ print("GDEG = " + str(problem.solve(Heuristics.GDEG)))
 
 print("")
 problem = FFP(fileName)
-ratesOfChange = [RatesOfChange.NEW_FIRES, RatesOfChange.FIRE_PER_INC, RatesOfChange.NEW_UNIQUE_VULNERABLE,
-                 RatesOfChange.VULNERABLE_DEGREE_INC, RatesOfChange.VULNERABLE_PER_SAFE_INC]
+ratesOfChange = [RatesOfChange.NEW_FIRES, RatesOfChange.NEW_VULNERABLE,
+                 RatesOfChange.NEW_UNIQUE_VULNERABLE, RatesOfChange.VULNERABLE_DEGREE_INC,
+                 RatesOfChange.VULNERABLE_PER_SAFE_INC]
 suggestedUnitWeights = [0.4, 16.3, 0.53, 5.5, 2.8]  # Correlating to the above
 
 
@@ -799,7 +801,7 @@ hh = AStarHyperHeuristic(ratesOfChange,
                          {Heuristics.LDEG: ldegWeights, Heuristics.GDEG: gdegWeights},
                          DebugOptions.AUTO_OPTIMIZATION)
 
-hh = MCTSHyperHeuristic(ratesOfChange, [Heuristics.LDEG, Heuristics.GDEG], problem)
+# hh = MCTSHyperHeuristic(ratesOfChange, [Heuristics.LDEG, Heuristics.GDEG], problem)
 
 
 # print(hh)
@@ -807,9 +809,10 @@ hh = MCTSHyperHeuristic(ratesOfChange, [Heuristics.LDEG, Heuristics.GDEG], probl
 while not hh.foundSolution:
     hh.solve()
 
+print("")
 print(hh.formatFromSolutionNode())
-print("")
-print(hh.solutionNode.ffp)
-print("")
-print(hh.root)
+# print("")
+# print(hh.solutionNode.ffp)
+# print("")
+# print(hh.root)
 # print(hh.solutionNode.gCost)
