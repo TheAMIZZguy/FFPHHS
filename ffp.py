@@ -746,7 +746,7 @@ class MCTSHyperHeuristic(SearchHyperHeuristic):
     def printNodeDetails(self, newNode):
         pass
 
-    def calculateUCB(self, node, c=2):
+    def calculateUCB(self, node, c=math.sqrt(2)):
         return node.percentage + c * math.sqrt(math.log(node.parent.reached) / node.reached)
 
 
@@ -808,8 +808,8 @@ while not hh.foundSolution:
     hh.solve()
 
 print(hh.formatFromSolutionNode())
-# print("")
-# print(hh.solutionNode.ffp)
-# print("")
-# print(hh.root)
+print("")
+print(hh.solutionNode.ffp)
+print("")
+print(hh.root)
 # print(hh.solutionNode.gCost)
