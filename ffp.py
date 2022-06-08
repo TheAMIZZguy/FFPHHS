@@ -480,44 +480,9 @@ class SearchHyperHeuristic:
         return self.formatSolution(solNode.parent.name, solNode, solNode.name) + "\n" + savedString
         # return self.formatSolution(solNode.parent.quickName, solNode, solNode.quickName) + "\n" + savedString
 
-    def printNodeDetails(self, newNode, debugInfo):
-        if self.debugOptions == DebugOptions.MANUAL_OPTIMIZATION:
-            level = 0
-            tempNode = newNode
-            while tempNode != self.root:
-                level += 1
-                tempNode = tempNode.parent
-
-            print("\n")
-            print("Node is at level " + str(level) + ", having just used " + newNode.heuristic.name)
-            print(newNode.name)
-            print("With Features: ")
-
-            sumList = [0] * len(debugInfo[0])
-            for i, feature in enumerate(self.features):
-                text = ""
-                text += "\t" + feature.name + ":"
-                while len(text) < 30:
-                    text += " "
-                text += str(round(debugInfo[0][i], 2)) + " * " + str(debugInfo[1][i]) + " = " + \
-                        str(round(debugInfo[0][i] * debugInfo[1][i], 2))
-                sumList[i] = round(debugInfo[0][i] * debugInfo[1][i], 2)
-                print(text)
-            print("Sum: " + str(sum(sumList)))
-            print("With remaining predicted turns of: " + str(round(debugInfo[2], 2)))
-            print("H-Cost: " + str(round(newNode.hCost)))
-            print("G-Cost: " + str(newNode.gCost))
-            print("")
-
-        elif self.debugOptions == DebugOptions.AUTO_OPTIMIZATION:
-            level = 0
-            tempNode = newNode
-            while tempNode != self.root:
-                level += 1
-                tempNode = tempNode.parent
-            print(str(level) + " " + str(" ".join([str(round(x, 2)) for x in debugInfo[0]])) +
-                  " g: " + str(newNode.gCost) + " h: " + str(round(newNode.hCost)) + " f: " +
-                  str(newNode.gCost + round(newNode.hCost)))
+    # debugInfo is for any extra information that may be needed
+    def printNodeDetails(self, newNode, debugInfo=DebugOptions.NONE):
+        criticalError(__class__.__name__, __name__, "The method has not been overriden by a valid subclass.")
 
 
 class AStarHyperHeuristic(SearchHyperHeuristic):
@@ -681,6 +646,45 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
         # First is the hCost, the rest are for optimization and debug reasons
         return sum(sumList) * predictedTurnsUntilDone, [featureList, heuristicWeights, predictedTurnsUntilDone]
 
+    def printNodeDetails(self, newNode, debugInfo=DebugOptions.NONE):
+        if self.debugOptions == DebugOptions.MANUAL_OPTIMIZATION:
+            level = 0
+            tempNode = newNode
+            while tempNode != self.root:
+                level += 1
+                tempNode = tempNode.parent
+
+            print("\n")
+            print("Node is at level " + str(level) + ", having just used " + newNode.heuristic.name)
+            print(newNode.name)
+            print("With Features: ")
+
+            sumList = [0] * len(debugInfo[0])
+            for i, feature in enumerate(self.features):
+                text = ""
+                text += "\t" + feature.name + ":"
+                while len(text) < 30:
+                    text += " "
+                text += str(round(debugInfo[0][i], 2)) + " * " + str(debugInfo[1][i]) + " = " + \
+                        str(round(debugInfo[0][i] * debugInfo[1][i], 2))
+                sumList[i] = round(debugInfo[0][i] * debugInfo[1][i], 2)
+                print(text)
+            print("Sum: " + str(sum(sumList)))
+            print("With remaining predicted turns of: " + str(round(debugInfo[2], 2)))
+            print("H-Cost: " + str(round(newNode.hCost)))
+            print("G-Cost: " + str(newNode.gCost))
+            print("")
+
+        elif self.debugOptions == DebugOptions.AUTO_OPTIMIZATION:
+            level = 0
+            tempNode = newNode
+            while tempNode != self.root:
+                level += 1
+                tempNode = tempNode.parent
+            print(str(level) + " " + str(" ".join([str(round(x, 2)) for x in debugInfo[0]])) +
+                  " g: " + str(newNode.gCost) + " h: " + str(round(newNode.hCost)) + " f: " +
+                  str(newNode.gCost + round(newNode.hCost)))
+
 
 class MCTSHyperHeuristic(SearchHyperHeuristic):
 
@@ -717,6 +721,11 @@ class MCTSHyperHeuristic(SearchHyperHeuristic):
         for heuristic in self.heuristics:
             ffp_ = deepcopy(currentNode.ffp)
             if not ffp_.step(heuristic):
+                if self.foundSolution:
+                    # If the solution is already found and this is not better, then just leave it alone
+                    if self.solutionNode.ffp.getFeature(Features.BURNING_NODES_NUM) >= \
+                            ffp_.getFeature(Features.BURNING_NODES_NUM):
+                        continue
                 self.foundSolution = True
 
             newNode = MCTSNode(ffp_, currentNode, heuristic)
@@ -745,6 +754,7 @@ class MCTSHyperHeuristic(SearchHyperHeuristic):
         for child in node.children:
             if child.percentage > percentage_:
                 percentage_ = child.percentage
+        node.percentage = percentage_
         self.backpropagate(node.parent, percentage_)
 
     def checkIfExplored(self, newNode, parentNode):
@@ -761,11 +771,36 @@ class MCTSHyperHeuristic(SearchHyperHeuristic):
 
         return returnNode
 
-    # TODO
-    def printNodeDetails(self, newNode):
-        pass
+    def printNodeDetails(self, newNode, debugInfo=DebugOptions.NONE):
+        if self.debugOptions == DebugOptions.MANUAL_OPTIMIZATION:
+            level = 0
+            tempNode = newNode
+            while tempNode != self.root:
+                level += 1
+                tempNode = tempNode.parent
 
-    def calculateUCB(self, node, c=math.sqrt(2)):
+            print("\n")
+            print("Node is at level " + str(level) + ", having just used " + newNode.heuristic.name)
+            print(newNode.name)
+            print("With Features: ")
+
+            print("Formula: " + str(newNode.percentage) + " + " + "c" + "*sqrt(log(" + str(newNode.parent.reached) +
+                  ")/" + str(newNode.reached) + ")")
+            print("A: " + str(newNode.percentage) +
+                  "   B: " + str(0.1 * math.sqrt(math.log(newNode.parent.reached) / newNode.reached)))
+            print("UCB: " + str(self.calculateUCB(newNode)))
+            print("")
+
+        elif self.debugOptions == DebugOptions.AUTO_OPTIMIZATION:
+            #TODO?
+            level = 0
+            tempNode = newNode
+            while tempNode != self.root:
+                level += 1
+                tempNode = tempNode.parent
+
+
+    def calculateUCB(self, node, c=0.1):
         return node.percentage + c * math.sqrt(math.log(node.parent.reached) / node.reached)
 
 
@@ -777,7 +812,7 @@ seed = random.randint(0, 1000)
 print("\nRandom Seed: " + str(seed))
 
 
-fileName = "instances/BBGRL/100_ep0.1_0_gilbert_2.in"
+fileName = "instances/BBGRL/50_ep0.1_0_gilbert_10.in"
 print("Graph Used: " + fileName + "\n")
 
 # Solves the problem using heuristic LDEG and one firefighter
@@ -819,7 +854,7 @@ hh = AStarHyperHeuristic(ratesOfChange,
                          {Heuristics.LDEG: ldegWeights, Heuristics.GDEG: gdegWeights},
                          DebugOptions.AUTO_OPTIMIZATION)
 
-# hh = MCTSHyperHeuristic(ratesOfChange, [Heuristics.LDEG, Heuristics.GDEG], problem)
+hh = MCTSHyperHeuristic(ratesOfChange, [Heuristics.LDEG, Heuristics.GDEG], problem, DebugOptions.MANUAL_OPTIMIZATION)
 
 
 # print(hh)
@@ -831,8 +866,6 @@ print("")
 print(hh.formatFromSolutionNode())
 # print("")
 # print(hh.solutionNode.ffp)
-print("DA NAME: ")
-print(hh.solutionNode.heuristic.name)
 print("")
 print(hh.root)
 # print(hh.solutionNode.gCost)
