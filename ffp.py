@@ -146,8 +146,10 @@ class FFP:
                         if debug:
                             print("\tFire spreads to node " + str(j))
 
+        canSpread = self.getFeature(Features.VULNERABLE_NODES) != 0
+
         # If it returns false, then it means a goal node has been reached
-        return spreading
+        return spreading and canSpread
 
     def solve(self, heuristic, numFireFighters=1, isPrint=True, debug=False):
         while self.step(heuristic, numFireFighters, debug):
@@ -232,14 +234,14 @@ class FFP:
             n = len(self.graph)
             for i in range(len(self.graph)):
                 for j in range(len(self.graph[i])):
-                    if self.state[i] == -1 and self.graph[i][j] == 1:
+                    if self.state[i] == -1 and self.graph[i][j] == 1 and self.state[j] == 0:
                         f += 1
             f = f / (n * (n - 1))
 
         elif feature == Features.VULNERABLE_NODES_PER:
             for j in range(stateLength):
                 for i in range(stateLength):
-                    if self.state[i] == -1 and self.graph[i][j] == 1:
+                    if self.state[i] == -1 and self.graph[i][j] == 1 and self.state[j] == 0:
                         f += 1
                         break
             f /= len(self.state)
@@ -250,7 +252,7 @@ class FFP:
                 if self.state[j] != -1:
                     notBurning += 1
                 for i in range(stateLength):
-                    if self.state[i] == -1 and self.graph[i][j] == 1:
+                    if self.state[i] == -1 and self.graph[i][j] == 1 and self.state[j] == 0:
                         f += 1
                         break
             f /= notBurning
@@ -258,7 +260,7 @@ class FFP:
         elif feature == Features.VULNERABLE_NODES:
             for j in range(stateLength):
                 for i in range(stateLength):
-                    if self.state[i] == -1 and self.graph[i][j] == 1:
+                    if self.state[i] == -1 and self.graph[i][j] == 1 and self.state[j] == 0:
                         f += 1
                         break
 
@@ -266,9 +268,8 @@ class FFP:
         elif feature == Features.REPEATED_VULNERABLE:
             for j in range(stateLength):
                 for i in range(stateLength):
-                    if self.state[i] == -1 and self.graph[i][j] == 1:
+                    if self.state[i] == -1 and self.graph[i][j] == 1 and self.state[j] == 0:
                         f += 1
-            f /= len(self.state)
 
         # Notes the degree of a vulnerable node onto untouched nodes
         elif feature == Features.VULNERABLE_DEGREE:
@@ -354,6 +355,8 @@ class Node:
         self.children = []
         self.cost = 0
 
+        self.isSolutionNode = False
+
         # This is here to quickly compare the states of different nodes, to see if they are the same
         self.name = "".join([str(x) for x in ffp.state])
         # self.quickName = getQuickName()
@@ -362,9 +365,17 @@ class Node:
         self.cost = cost
 
     def __repr__(self, level=0):
-        # text = "\t" * level + repr(self.name) + "\n"
-        # text = "\t" * level + repr(self.quickName) + "\n"
-        text = "\t" * level + repr(getQuickName()) + "\n"
+        name = "Root"
+        if self.heuristic is not None:
+            # name = self.name
+            # name = self.quickName
+            # name = getQuickName()
+            name = self.heuristic.name
+
+        if self.isSolutionNode:
+            name += "*"
+
+        text = "\t" * level + repr(name) + "\n"
         for child in self.children:
             text += child.__repr__(level + 1)
         return text
@@ -435,6 +446,7 @@ class SearchHyperHeuristic:
         self.foundSolution = False
         self.solutionNode = None
 
+
     # Iteratively solves the tree
     def solve(self):
         criticalError(__class__.__name__, __name__, "The method has not been overriden by a valid subclass.")
@@ -449,11 +461,11 @@ class SearchHyperHeuristic:
             for node in self.explored:
                 if node.name == parent:
                     # if node.quickName == parent:
+                    # if the parent has no heuristic (root)
                     if not node.heuristic:
                         return self.formatSolution(None, node, parent + " -> (" +
                                                    str(current.heuristic.name) + ") \n" + solution)
                     return self.formatSolution(node.parent.name, node, parent + " -> (" +
-                                               # return self.formatSolution(node.parent.quickName, node, parent + " -> (" +
                                                str(current.heuristic.name) + ") \n" + solution)
         return solution
 
@@ -551,11 +563,16 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
         for heuristic in self.heuristics:
             ffp_ = deepcopy(node.ffp)
             if not ffp_.step(heuristic):
+                if self.foundSolution:
+                    # If the solution is already found and this is not better, then just leave it alone
+                    if self.solutionNode.gCost >= ffp_.getFeature(Features.BURNING_NODES_NUM):
+                        continue
                 self.foundSolution = True
 
             newNode = AStarNode(ffp_, node, heuristic)
             if self.foundSolution:
                 self.solutionNode = newNode
+                self.solutionNode.isSolutionNode = True
 
             hCost, extraInfo = self.calculateHCost(newNode, node, heuristic)
             newNode.setHCost(hCost)
@@ -623,8 +640,8 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
                 featureList.append(currentNode.ffp.getFeature(Features.BURNING_NODES_PER)
                                    - parentNode.ffp.getFeature(Features.BURNING_NODES_PER))
             elif feature == RatesOfChange.NEW_VULNERABLE:  # 3
-                featureList.append(currentNode.ffp.getFeature(Features.REPEATED_VULNERABLE)
-                                   - parentNode.ffp.getFeature(Features.REPEATED_VULNERABLE))
+                featureList.append(max(currentNode.ffp.getFeature(Features.REPEATED_VULNERABLE)
+                                   - parentNode.ffp.getFeature(Features.REPEATED_VULNERABLE), 0))
             elif feature == RatesOfChange.NEW_UNIQUE_VULNERABLE:  # 4
                 featureList.append(max(currentNode.ffp.getFeature(Features.VULNERABLE_NODES)
                                    - parentNode.ffp.getFeature(Features.VULNERABLE_NODES), 0))
@@ -632,8 +649,8 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
                 featureList.append(max(currentNode.ffp.getFeature(Features.VULNERABLE_DEGREE)
                                    - parentNode.ffp.getFeature(Features.VULNERABLE_DEGREE), 0))
             elif feature == RatesOfChange.VULNERABLE_PER_INC:  # 6X4 Do not include alongside 4
-                featureList.append(currentNode.ffp.getFeature(Features.VULNERABLE_NODES_PER)
-                                   - parentNode.ffp.getFeature(Features.VULNERABLE_NODES_PER))
+                featureList.append(max(currentNode.ffp.getFeature(Features.VULNERABLE_NODES_PER)
+                                   - parentNode.ffp.getFeature(Features.VULNERABLE_NODES_PER), 0))
             elif feature == RatesOfChange.VULNERABLE_PER_SAFE_INC:  # 7
                 featureList.append(max(currentNode.ffp.getFeature(Features.VULNERABLE_NODES_PER_SAFE)
                                    - parentNode.ffp.getFeature(Features.VULNERABLE_NODES_PER_SAFE), 0))
@@ -705,6 +722,7 @@ class MCTSHyperHeuristic(SearchHyperHeuristic):
             newNode = MCTSNode(ffp_, currentNode, heuristic)
             if self.foundSolution:
                 self.solutionNode = newNode
+                self.solutionNode.isSolutionNode = True
 
             self.simulate(self.checkIfExplored(newNode, currentNode))
 
@@ -715,8 +733,8 @@ class MCTSHyperHeuristic(SearchHyperHeuristic):
         copyFFP = deepcopy(node.ffp)
 
         # Which of the two should be chosen?
-        #percentage = copyFFP.solve(node.heuristic, isPrint=False)
-        percentage = copyFFP.solve(Heuristics.RANDOM, isPrint=False)
+        percentage = copyFFP.solve(node.heuristic, isPrint=False)
+        # percentage = copyFFP.solve(Heuristics.RANDOM, isPrint=False)
         self.backpropagate(node, percentage)
 
     def backpropagate(self, node, percentage):
@@ -759,7 +777,7 @@ seed = random.randint(0, 1000)
 print("\nRandom Seed: " + str(seed))
 
 
-fileName = "instances/BBGRL/50_ep0.1_0_gilbert_10.in"
+fileName = "instances/BBGRL/100_ep0.1_0_gilbert_2.in"
 print("Graph Used: " + fileName + "\n")
 
 # Solves the problem using heuristic LDEG and one firefighter
@@ -786,8 +804,8 @@ problem = FFP(fileName)
 ratesOfChange = [RatesOfChange.NEW_FIRES, RatesOfChange.NEW_VULNERABLE,
                  RatesOfChange.NEW_UNIQUE_VULNERABLE, RatesOfChange.VULNERABLE_DEGREE_INC,
                  RatesOfChange.VULNERABLE_PER_SAFE_INC]
-suggestedUnitWeights = [0.4, 16.3, 0.53, 5.5, 2.8]  # Correlating to the above
-
+# suggestedUnitWeights = [0.4, 16.3, 0.53, 5.5, 2.8]  # Correlating to the above
+suggestedUnitWeights = [0.38, 0.40, 0.85, 5.5, 20]  # Correlating to the above
 
 ldegWeights = [x*random.uniform(.5, 1.5)*.6 for x in suggestedUnitWeights]
 gdegWeights = [x*random.uniform(.5, 1.5)*.6 for x in suggestedUnitWeights]
@@ -813,6 +831,8 @@ print("")
 print(hh.formatFromSolutionNode())
 # print("")
 # print(hh.solutionNode.ffp)
-# print("")
-# print(hh.root)
+print("DA NAME: ")
+print(hh.solutionNode.heuristic.name)
+print("")
+print(hh.root)
 # print(hh.solutionNode.gCost)
