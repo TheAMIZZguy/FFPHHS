@@ -37,6 +37,11 @@ class Heuristics(enum.Enum):
     GDEG = 2
 
 
+class HyperHeuristics(enum.Enum):
+    AStar = 1
+    MCTS = 2
+
+
 class DebugOptions(enum.Enum):
     NONE = 0
     PRINTS = 1
@@ -52,7 +57,7 @@ def criticalError(class_name, func_name, message):
     print("=====================")
     exit(0)
 
-# Not multi-thread safe
+# Not multi-thread safe, not used atm
 quickNameIter = 0
 def getQuickName():
     global quickNameIter
@@ -804,68 +809,72 @@ class MCTSHyperHeuristic(SearchHyperHeuristic):
         return node.percentage + c * math.sqrt(math.log(node.parent.reached) / node.reached)
 
 
-# Tests
+# Testing Helpers
 # =====================
 
+def runHeuristic(problem, heuristic):
+    print("LDEG = " + str(problem.solve(heuristic)))
+
+def runHyperHeuristic(hyperHeur, ratesOfChange, hueristics, problem, debugInfo, extra):
+    hh = None
+
+    if hyperHeur == HyperHeuristics.AStar:
+        hh = AStarHyperHeuristic(ratesOfChange, hueristics, problem, extra, debugInfo)
+    elif hyperHeur == HyperHeuristics.AStar:
+        hh = MCTSHyperHeuristic(ratesOfChange, hueristics, problem, debugInfo)
+    else:
+        criticalError("TESTING", __name__, "HHeuristic " + hyperHeur + " is not recognized by the system.")
+
+
+    print(hh)
+
+    while not hh.foundSolution:
+        hh.solve()
+
+    print("")
+    print(hh.formatFromSolutionNode())
+    # print("")
+    # print(hh.solutionNode.ffp)
+    print("")
+    print(hh.root)
+    # print(hh.solutionNode.gCost)
+
+# ratesOfChange = [RatesOfChange.NEW_FIRES, RatesOfChange.NEW_VULNERABLE,
+#                  RatesOfChange.NEW_UNIQUE_VULNERABLE, RatesOfChange.VULNERABLE_DEGREE_INC,
+#                  RatesOfChange.VULNERABLE_PER_SAFE_INC]
+# # suggestedUnitWeights = [0.4, 16.3, 0.53, 5.5, 2.8]  # Correlating to the above
+# suggestedUnitWeights = [0.38, 0.40, 0.85, 5.5, 20]  # Correlating to the above
+#
+# ldegWeights = [x*random.uniform(.5, 1.5)*.6 for x in suggestedUnitWeights]
+# gdegWeights = [x*random.uniform(.5, 1.5)*.6 for x in suggestedUnitWeights]
+# # print("ldeg: " + str(", ".join([str(x) for x in ldegWeights])))
+# # print("gdeg: " + str(", ".join([str(x) for x in gdegWeights])))
+#
+# hh = AStarHyperHeuristic(ratesOfChange,
+#                          [Heuristics.LDEG, Heuristics.GDEG],
+#                          problem,
+#                          {Heuristics.LDEG: ldegWeights, Heuristics.GDEG: gdegWeights},
+#                          DebugOptions.AUTO_OPTIMIZATION)
+#
+# hh = MCTSHyperHeuristic(ratesOfChange, [Heuristics.LDEG, Heuristics.GDEG], problem, DebugOptions.MANUAL_OPTIMIZATION)
+#
+#
+
+
+# Manual
+# =====================
 # If some randomness is needed
 seed = random.randint(0, 1000)
 print("\nRandom Seed: " + str(seed))
 
-
 fileName = "instances/BBGRL/50_ep0.1_0_gilbert_10.in"
 print("Graph Used: " + fileName + "\n")
 
-# Solves the problem using heuristic LDEG and one firefighter
+
 problem = FFP(fileName)
-print("LDEG = " + str(problem.solve(Heuristics.LDEG)))
-
-# Solves the problem using heuristic GDEG and one firefighter
-problem = FFP(fileName)
-print("GDEG = " + str(problem.solve(Heuristics.GDEG)))
+runHeuristic(problem, Heuristics.LDEG)
 
 
-# Solves the problem using the A* HH
-
-# NEW_FIRES = 1
-# FIRE_PER_INC = 2
-# NEW_VULNERABLE = 3
-# NEW_UNIQUE_VULNERABLE = 4
-# VULNERABLE_DEGREE_INC = 5
-# VULNERABLE_PER_INC = 6
-# VULNERABLE_PER_SAFE_INC = 7
-
-print("")
-problem = FFP(fileName)
-ratesOfChange = [RatesOfChange.NEW_FIRES, RatesOfChange.NEW_VULNERABLE,
-                 RatesOfChange.NEW_UNIQUE_VULNERABLE, RatesOfChange.VULNERABLE_DEGREE_INC,
-                 RatesOfChange.VULNERABLE_PER_SAFE_INC]
-# suggestedUnitWeights = [0.4, 16.3, 0.53, 5.5, 2.8]  # Correlating to the above
-suggestedUnitWeights = [0.38, 0.40, 0.85, 5.5, 20]  # Correlating to the above
-
-ldegWeights = [x*random.uniform(.5, 1.5)*.6 for x in suggestedUnitWeights]
-gdegWeights = [x*random.uniform(.5, 1.5)*.6 for x in suggestedUnitWeights]
-print("ldeg: " + str(", ".join([str(x) for x in ldegWeights])))
-print("gdeg: " + str(", ".join([str(x) for x in gdegWeights])))
-print("")
-
-hh = AStarHyperHeuristic(ratesOfChange,
-                         [Heuristics.LDEG, Heuristics.GDEG],
-                         problem,
-                         {Heuristics.LDEG: ldegWeights, Heuristics.GDEG: gdegWeights},
-                         DebugOptions.AUTO_OPTIMIZATION)
-
-hh = MCTSHyperHeuristic(ratesOfChange, [Heuristics.LDEG, Heuristics.GDEG], problem, DebugOptions.MANUAL_OPTIMIZATION)
 
 
-# print(hh)
 
-while not hh.foundSolution:
-    hh.solve()
-
-print("")
-print(hh.formatFromSolutionNode())
-# print("")
-# print(hh.solutionNode.ffp)
-print("")
-print(hh.root)
-# print(hh.solutionNode.gCost)
