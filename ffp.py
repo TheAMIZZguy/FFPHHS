@@ -693,11 +693,12 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
 
 class MCTSHyperHeuristic(SearchHyperHeuristic):
 
-    def __init__(self, features, heuristics, ffp, debugOptions=DebugOptions.NONE):
+    def __init__(self, features, heuristics, ffp, bias=0.1, debugOptions=DebugOptions.NONE):
         super().__init__(features, heuristics, ffp)
 
         self.debugOptions = debugOptions
         self.explored = []
+        self.bias = bias
 
         self.root = MCTSNode(ffp, None, None)
 
@@ -804,27 +805,33 @@ class MCTSHyperHeuristic(SearchHyperHeuristic):
                 level += 1
                 tempNode = tempNode.parent
 
-
     def calculateUCB(self, node, c=0.1):
         return node.percentage + c * math.sqrt(math.log(node.parent.reached) / node.reached)
+
+    # Returns the string representation of this hyper-heuristic
+    def __str__(self):
+        text = __class__.__name__ + "\nBias: " + str(self.bias) + "\nHeuristics:\n"
+        for heuristic in self.heuristics:
+            text += "\t" + str(heuristic.name) + "\n"
+        return text
 
 
 # Testing Helpers
 # =====================
 
 def runHeuristic(problem, heuristic):
-    print("LDEG = " + str(problem.solve(heuristic)))
+    print(heuristic.name + " = " + str(problem.solve(heuristic)))
 
-def runHyperHeuristic(hyperHeur, ratesOfChange, hueristics, problem, debugInfo, extra):
+
+def runHyperHeuristic(hyperHeur, ratesOfChange, hueristics, problem, extra, debugInfo):
     hh = None
 
     if hyperHeur == HyperHeuristics.AStar:
         hh = AStarHyperHeuristic(ratesOfChange, hueristics, problem, extra, debugInfo)
-    elif hyperHeur == HyperHeuristics.AStar:
-        hh = MCTSHyperHeuristic(ratesOfChange, hueristics, problem, debugInfo)
+    elif hyperHeur == HyperHeuristics.MCTS:
+        hh = MCTSHyperHeuristic(ratesOfChange, hueristics, problem, extra, debugInfo)
     else:
         criticalError("TESTING", __name__, "HHeuristic " + hyperHeur + " is not recognized by the system.")
-
 
     print(hh)
 
@@ -839,30 +846,29 @@ def runHyperHeuristic(hyperHeur, ratesOfChange, hueristics, problem, debugInfo, 
     print(hh.root)
     # print(hh.solutionNode.gCost)
 
-# ratesOfChange = [RatesOfChange.NEW_FIRES, RatesOfChange.NEW_VULNERABLE,
-#                  RatesOfChange.NEW_UNIQUE_VULNERABLE, RatesOfChange.VULNERABLE_DEGREE_INC,
-#                  RatesOfChange.VULNERABLE_PER_SAFE_INC]
-# # suggestedUnitWeights = [0.4, 16.3, 0.53, 5.5, 2.8]  # Correlating to the above
-# suggestedUnitWeights = [0.38, 0.40, 0.85, 5.5, 20]  # Correlating to the above
-#
-# ldegWeights = [x*random.uniform(.5, 1.5)*.6 for x in suggestedUnitWeights]
-# gdegWeights = [x*random.uniform(.5, 1.5)*.6 for x in suggestedUnitWeights]
-# # print("ldeg: " + str(", ".join([str(x) for x in ldegWeights])))
-# # print("gdeg: " + str(", ".join([str(x) for x in gdegWeights])))
-#
-# hh = AStarHyperHeuristic(ratesOfChange,
-#                          [Heuristics.LDEG, Heuristics.GDEG],
-#                          problem,
-#                          {Heuristics.LDEG: ldegWeights, Heuristics.GDEG: gdegWeights},
-#                          DebugOptions.AUTO_OPTIMIZATION)
-#
-# hh = MCTSHyperHeuristic(ratesOfChange, [Heuristics.LDEG, Heuristics.GDEG], problem, DebugOptions.MANUAL_OPTIMIZATION)
-#
-#
+# HH Constants
+ratesOfChange = [RatesOfChange.NEW_FIRES, RatesOfChange.NEW_VULNERABLE,
+                 RatesOfChange.NEW_UNIQUE_VULNERABLE, RatesOfChange.VULNERABLE_DEGREE_INC,
+                 RatesOfChange.VULNERABLE_PER_SAFE_INC]
+heuristicsList = [Heuristics.LDEG, Heuristics.GDEG]
 
+# A* Stuff --
+# suggestedUnitWeights = [0.4, 16.3, 0.53, 5.5, 2.8]  # Correlating to the above
+suggestedUnitWeights = [0.38, 0.40, 0.85, 5.5, 20]  # Correlating to the above
+
+ldegWeights = [x*random.uniform(.5, 1.5)*.6 for x in suggestedUnitWeights]
+gdegWeights = [x*random.uniform(.5, 1.5)*.6 for x in suggestedUnitWeights]
+# print("ldeg: " + str(", ".join([str(x) for x in ldegWeights])))
+# print("gdeg: " + str(", ".join([str(x) for x in gdegWeights])))
+
+weightsList = {Heuristics.LDEG: ldegWeights, Heuristics.GDEG: gdegWeights}
+# MCTS STUFF --
+bias = 0.1
+# ----
 
 # Manual
 # =====================
+
 # If some randomness is needed
 seed = random.randint(0, 1000)
 print("\nRandom Seed: " + str(seed))
@@ -873,6 +879,9 @@ print("Graph Used: " + fileName + "\n")
 
 problem = FFP(fileName)
 runHeuristic(problem, Heuristics.LDEG)
+problem = FFP(fileName)
+runHyperHeuristic(HyperHeuristics.MCTS, ratesOfChange, heuristicsList, problem, bias,
+                  DebugOptions.NONE)
 
 
 
