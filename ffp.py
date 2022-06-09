@@ -2,6 +2,8 @@ import random
 import math
 import enum
 from copy import deepcopy
+import csv
+import os
 
 
 # PER is PERCENTAGE
@@ -165,7 +167,7 @@ class FFP:
         percentSaved = (self.n - burned) / self.n
         if isPrint:
             return "Saved: " + str(saved) + " (" + str(percentSaved*100) + "%)"
-        return percentSaved
+        return saved, percentSaved
 
 
     # Selects the next node to protect by a firefighter
@@ -485,6 +487,16 @@ class SearchHyperHeuristic:
         return self.formatSolution(solNode.parent.name, solNode, solNode.name) + "\n" + savedString
         # return self.formatSolution(solNode.parent.quickName, solNode, solNode.quickName) + "\n" + savedString
 
+    # Formats the solution (not really needed, but helps the solution to be understood).
+    def solutionInfo(self):
+        solNode = self.solutionNode
+        burned = solNode.ffp.getFeature(Features.BURNING_NODES_NUM)
+        saved = solNode.ffp.n - burned
+        percentSaved = (solNode.ffp.n - burned) / solNode.ffp.n
+
+        return saved, percentSaved
+        # return self.formatSolution(solNode.parent.quickName, solNode, solNode.quickName) + "\n" + savedString
+
     # debugInfo is for any extra information that may be needed
     def printNodeDetails(self, newNode, debugInfo=DebugOptions.NONE):
         criticalError(__class__.__name__, __name__, "The method has not been overriden by a valid subclass.")
@@ -748,7 +760,7 @@ class MCTSHyperHeuristic(SearchHyperHeuristic):
         copyFFP = deepcopy(node.ffp)
 
         # Which of the two should be chosen?
-        percentage = copyFFP.solve(node.heuristic, isPrint=False)
+        percentage = copyFFP.solve(node.heuristic, isPrint=False)[1]
         # percentage = copyFFP.solve(Heuristics.RANDOM, isPrint=False)
         self.backpropagate(node, percentage)
 
@@ -790,10 +802,10 @@ class MCTSHyperHeuristic(SearchHyperHeuristic):
             print(newNode.name)
             print("With Features: ")
 
-            print("Formula: " + str(newNode.percentage) + " + " + "c" + "*sqrt(log(" + str(newNode.parent.reached) +
-                  ")/" + str(newNode.reached) + ")")
+            print("Formula: " + str(newNode.percentage) + " + " + str(self.bias) + "*sqrt(log(" +
+                  str(newNode.parent.reached) + ")/" + str(newNode.reached) + ")")
             print("A: " + str(newNode.percentage) +
-                  "   B: " + str(0.1 * math.sqrt(math.log(newNode.parent.reached) / newNode.reached)))
+                  "   B: " + str(self.bias * math.sqrt(math.log(newNode.parent.reached) / newNode.reached)))
             print("UCB: " + str(self.calculateUCB(newNode)))
             print("")
 
@@ -805,8 +817,8 @@ class MCTSHyperHeuristic(SearchHyperHeuristic):
                 level += 1
                 tempNode = tempNode.parent
 
-    def calculateUCB(self, node, c=0.1):
-        return node.percentage + c * math.sqrt(math.log(node.parent.reached) / node.reached)
+    def calculateUCB(self, node):
+        return node.percentage + self.bias * math.sqrt(math.log(node.parent.reached) / node.reached)
 
     # Returns the string representation of this hyper-heuristic
     def __str__(self):
@@ -819,11 +831,13 @@ class MCTSHyperHeuristic(SearchHyperHeuristic):
 # Testing Helpers
 # =====================
 
-def runHeuristic(problem, heuristic):
-    print(heuristic.name + " = " + str(problem.solve(heuristic)))
+def runHeuristic(problem, heuristic, isPrint=True):
+    if isPrint:
+        print(heuristic.name + " = " + str(problem.solve(heuristic)))
+    return problem.solve(heuristic, isPrint=False)
 
 
-def runHyperHeuristic(hyperHeur, ratesOfChange, hueristics, problem, extra, debugInfo):
+def runHyperHeuristic(hyperHeur, ratesOfChange, hueristics, problem, extra, debugInfo, isPrint=True):
     hh = None
 
     if hyperHeur == HyperHeuristics.AStar:
@@ -833,18 +847,25 @@ def runHyperHeuristic(hyperHeur, ratesOfChange, hueristics, problem, extra, debu
     else:
         criticalError("TESTING", __name__, "HHeuristic " + hyperHeur + " is not recognized by the system.")
 
-    print(hh)
+    if isPrint:
+        print(hh)
 
     while not hh.foundSolution:
         hh.solve()
 
-    print("")
-    print(hh.formatFromSolutionNode())
-    # print("")
-    # print(hh.solutionNode.ffp)
-    print("")
-    print(hh.root)
-    # print(hh.solutionNode.gCost)
+    returnInfo = hh.solutionInfo()
+
+    if isPrint:
+        print("")
+        print(hh.formatFromSolutionNode())
+        # print("")
+        # print(hh.solutionNode.ffp)
+        print("")
+        print(hh.root)
+    else:
+        print(hyperHeur.name + "= Saved: " + str(returnInfo[0]) + " (" + str(returnInfo[1] * 100) + "%)")
+    return returnInfo
+
 
 # HH Constants
 ratesOfChange = [RatesOfChange.NEW_FIRES, RatesOfChange.NEW_VULNERABLE,
@@ -873,17 +894,65 @@ bias = 0.1
 seed = random.randint(0, 1000)
 print("\nRandom Seed: " + str(seed))
 
-fileName = "instances/BBGRL/50_ep0.1_0_gilbert_10.in"
+fileName = "instances/GBRL/1000_r0.065_0_geom_2.gin"
 print("Graph Used: " + fileName + "\n")
 
 
+# problem = FFP(fileName)
+# runHeuristic(problem, Heuristics.LDEG)
 problem = FFP(fileName)
-runHeuristic(problem, Heuristics.LDEG)
-problem = FFP(fileName)
-runHyperHeuristic(HyperHeuristics.MCTS, ratesOfChange, heuristicsList, problem, bias,
-                  DebugOptions.NONE)
+runHyperHeuristic(HyperHeuristics.AStar, ratesOfChange, heuristicsList, problem, weightsList, DebugOptions.MANUAL_OPTIMIZATION)
 
+# CSV WORKS
+# =====================
+runInstancesForHeuristics = False
+runInstancesForHyperHeuristics = False
 
+if runInstancesForHeuristics:
+    for method in Heuristics:
+        if method == method.RANDOM:
+            continue
+        with open('results/' + str(method.name) + '.csv', 'w', newline='') as csvfile:
+            resultWriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
+            directoryPath = "instances"
+            for directory in os.listdir(directoryPath):
+                dir_ = os.path.join(directoryPath, directory)
 
+                if not os.path.isdir(dir_):
+                    continue
+                for filename in os.listdir(dir_):
+                    f = os.path.join(dir_, filename)
+                    if os.path.isfile(f):
+                        problem = FFP(f)
+                        # print(problem.state)
+                        results = runHeuristic(problem, method)
+                        # print(results)
+                        resultWriter.writerow([str(method.name), str(f), str(results[0]), str(results[1])])
 
+if runInstancesForHyperHeuristics:
+    for method in HyperHeuristics:
+        extra = None
+        if method == HyperHeuristics.AStar:
+            extra = weightsList
+        elif method == HyperHeuristics.MCTS:
+            extra = bias
+        with open('results/' + str(method.name) + '.csv', 'w', newline='') as csvfile:
+            resultWriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+
+            directoryPath = "instances"
+            for directory in os.listdir(directoryPath):
+                dir_ = os.path.join(directoryPath, directory)
+                if dir_ != os.path.join(directoryPath, "GBRL"):
+                    continue
+
+                if not os.path.isdir(dir_):
+                    continue
+                for filename in os.listdir(dir_):
+                    f = os.path.join(dir_, filename)
+                    if os.path.isfile(f):
+                        print(f)
+                        problem = FFP(f)
+                        results = runHyperHeuristic(method, ratesOfChange, heuristicsList, problem,
+                                                    extra, DebugOptions.NONE, isPrint=False)
+                        resultWriter.writerow([str(method.name), str(f), str(results[0]), str(results[1])])
