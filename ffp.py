@@ -4,6 +4,7 @@ import enum
 from copy import deepcopy
 import csv
 import os
+import time
 
 
 # PER is PERCENTAGE
@@ -616,11 +617,11 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
 
         for feature in self.features:
             if feature == RatesOfChange.NEW_FIRES:  # 1
-                featureList.append(currentNode.ffp.getFeature(Features.BURNING_NODES_NUM)
-                                   - parentNode.ffp.getFeature(Features.BURNING_NODES_NUM))
+                featureList.append(max(currentNode.ffp.getFeature(Features.BURNING_NODES_NUM)
+                                   - parentNode.ffp.getFeature(Features.BURNING_NODES_NUM), 0))
             elif feature == RatesOfChange.FIRE_PER_INC:  # 2X1 Do not include alongside 1
-                featureList.append(currentNode.ffp.getFeature(Features.BURNING_NODES_PER)
-                                   - parentNode.ffp.getFeature(Features.BURNING_NODES_PER))
+                featureList.append(max(currentNode.ffp.getFeature(Features.BURNING_NODES_PER)
+                                   - parentNode.ffp.getFeature(Features.BURNING_NODES_PER), 0))
             elif feature == RatesOfChange.NEW_VULNERABLE:  # 3
                 featureList.append(max(currentNode.ffp.getFeature(Features.REPEATED_VULNERABLE)
                                    - parentNode.ffp.getFeature(Features.REPEATED_VULNERABLE), 0))
@@ -651,8 +652,8 @@ class AStarHyperHeuristic(SearchHyperHeuristic):
         # Because at the beginning it will spread slowly and we dont want that to be too much of a difference
         # Or should we consider a second derivative of rate of change
         # (i.e. look at how the rate of change has changed between two time-steps)
-        # rateOfIncrease = max(sum(sumList), featureList)
-        rateOfIncrease = sum(sumList)
+        rateOfIncrease = max(featureList) # like 99% of the time it is new fires
+        # rateOfIncrease = sum(sumList)
 
         # The 1 is how many firefighters there are per turn, could change for different problems
         # predictedTurnsUntilDone = (self.root.ffp.n - (1 + rateOfIncrease)) / (1 + rateOfIncrease)
@@ -874,13 +875,16 @@ ratesOfChange = [RatesOfChange.NEW_FIRES, RatesOfChange.NEW_VULNERABLE,
 heuristicsList = [Heuristics.LDEG, Heuristics.GDEG]
 
 # A* Stuff --
-# suggestedUnitWeights = [0.4, 16.3, 0.53, 5.5, 2.8]  # Correlating to the above
 suggestedUnitWeights = [0.38, 0.40, 0.85, 5.5, 20]  # Correlating to the above
 
-ldegWeights = [x*random.uniform(.5, 1.5)*.6 for x in suggestedUnitWeights]
-gdegWeights = [x*random.uniform(.5, 1.5)*.6 for x in suggestedUnitWeights]
-# print("ldeg: " + str(", ".join([str(x) for x in ldegWeights])))
-# print("gdeg: " + str(", ".join([str(x) for x in gdegWeights])))
+ldegWeights_ = [1, 1.3, 1.3, 1.3, .1] # sum should be the same so there is no bias
+gdegWeights_ = [1.4, .9, .9, .9, .9]
+ldegWeights = [x*ldegWeights_[i]*.6 for i, x in enumerate(suggestedUnitWeights)]
+gdegWeights = [x*gdegWeights_[i]*.6 for i, x in enumerate(suggestedUnitWeights)]
+# ldegWeights = [x*random.uniform(.5, 1.5)*.6 for x in suggestedUnitWeights]
+# gdegWeights = [x*random.uniform(.5, 1.5)*.6 for x in suggestedUnitWeights]
+print("ldeg: " + str(", ".join([str(x) for x in ldegWeights])))
+print("gdeg: " + str(", ".join([str(x) for x in gdegWeights])))
 
 weightsList = {Heuristics.LDEG: ldegWeights, Heuristics.GDEG: gdegWeights}
 # MCTS STUFF --
@@ -894,65 +898,113 @@ bias = 0.1
 seed = random.randint(0, 1000)
 print("\nRandom Seed: " + str(seed))
 
-fileName = "instances/GBRL/1000_r0.065_0_geom_2.gin"
+fileName = "instances/GBRL/500_r0.083_0_geom_2.gin"
 print("Graph Used: " + fileName + "\n")
 
 
 # problem = FFP(fileName)
 # runHeuristic(problem, Heuristics.LDEG)
-problem = FFP(fileName)
-runHyperHeuristic(HyperHeuristics.AStar, ratesOfChange, heuristicsList, problem, weightsList, DebugOptions.MANUAL_OPTIMIZATION)
+# problem = FFP(fileName)
+# runHyperHeuristic(HyperHeuristics.AStar, ratesOfChange, heuristicsList, problem, weightsList, DebugOptions.AUTO_OPTIMIZATION)
 
 # CSV WORKS
 # =====================
-runInstancesForHeuristics = False
-runInstancesForHyperHeuristics = False
+runInstancesForHeuristics = True
+runInstancesForHyperHeuristics = True
 
-if runInstancesForHeuristics:
-    for method in Heuristics:
-        if method == method.RANDOM:
-            continue
+def runInstances(methods):
+    for method in methods:
         with open('results/' + str(method.name) + '.csv', 'w', newline='') as csvfile:
             resultWriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-
             directoryPath = "instances"
             for directory in os.listdir(directoryPath):
                 dir_ = os.path.join(directoryPath, directory)
-
                 if not os.path.isdir(dir_):
                     continue
                 for filename in os.listdir(dir_):
                     f = os.path.join(dir_, filename)
-                    if os.path.isfile(f):
-                        problem = FFP(f)
-                        # print(problem.state)
-                        results = runHeuristic(problem, method)
-                        # print(results)
-                        resultWriter.writerow([str(method.name), str(f), str(results[0]), str(results[1])])
-
-if runInstancesForHyperHeuristics:
-    for method in HyperHeuristics:
-        extra = None
-        if method == HyperHeuristics.AStar:
-            extra = weightsList
-        elif method == HyperHeuristics.MCTS:
-            extra = bias
-        with open('results/' + str(method.name) + '.csv', 'w', newline='') as csvfile:
-            resultWriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-
-            directoryPath = "instances"
-            for directory in os.listdir(directoryPath):
-                dir_ = os.path.join(directoryPath, directory)
-                if dir_ != os.path.join(directoryPath, "GBRL"):
-                    continue
-
-                if not os.path.isdir(dir_):
-                    continue
-                for filename in os.listdir(dir_):
-                    f = os.path.join(dir_, filename)
+                    if "GBRL" in dir_ and ("1000" in f or "500" in f):
+                        continue
                     if os.path.isfile(f):
                         print(f)
                         problem = FFP(f)
-                        results = runHyperHeuristic(method, ratesOfChange, heuristicsList, problem,
-                                                    extra, DebugOptions.NONE, isPrint=False)
-                        resultWriter.writerow([str(method.name), str(f), str(results[0]), str(results[1])])
+
+                        if method.__class__ == HyperHeuristics:
+                            extra = None
+                            if method == HyperHeuristics.AStar:
+                                extra = weightsList
+                            elif method == HyperHeuristics.MCTS:
+                                extra = bias
+
+                            start = time.time()
+                            results = runHyperHeuristic(method, ratesOfChange, heuristicsList, problem,
+                                                        extra, DebugOptions.NONE, isPrint=False)
+                            end = time.time()
+                        elif method.__class__ == Heuristics:
+                            start = time.time()
+                            results = runHeuristic(problem, method)
+                            end = time.time()
+                        else:
+                            criticalError("TESTING", __name__, "Solver Method Not Available")
+                        resultWriter.writerow([str(method.name) + "," + str(f) + "," + str(results[0]) + "," +
+                                                   str(results[1]) + "," + str(round(end-start, 3))])
+
+
+runInstances([Heuristics.LDEG, Heuristics.GDEG, HyperHeuristics.AStar, HyperHeuristics.MCTS])
+
+
+# if runInstancesForHeuristics:
+#     for method in Heuristics:
+#         if method == method.RANDOM:
+#             continue
+#         with open('results/' + str(method.name) + '.csv', 'w', newline='') as csvfile:
+#             resultWriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+#
+#             directoryPath = "instances"
+#             for directory in os.listdir(directoryPath):
+#                 dir_ = os.path.join(directoryPath, directory)
+#
+#                 if not os.path.isdir(dir_):
+#                     continue
+#                 for filename in os.listdir(dir_):
+#                     f = os.path.join(dir_, filename)
+#                     if os.path.isfile(f):
+#                         problem = FFP(f)
+#                         start = time.time()
+#                         results = runHeuristic(problem, method)
+#                         end = time.time()
+#                         resultWriter.writerow([str(method.name) + "," + str(f) + "," + str(results[0]) + "," +
+#                                                str(results[1]) + "," + str(round(end-start, 3))])
+#
+# if runInstancesForHyperHeuristics:
+#     for method in HyperHeuristics:
+#         extra = None
+#         if method == HyperHeuristics.AStar:
+#             extra = weightsList
+#         elif method == HyperHeuristics.MCTS:
+#             extra = bias
+#         with open('results/' + str(method.name) + '.csv', 'w', newline='') as csvfile:
+#             resultWriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+#
+#             directoryPath = "instances"
+#             for directory in os.listdir(directoryPath):
+#                 dir_ = os.path.join(directoryPath, directory)
+#                 # if dir_ == os.path.join(directoryPath, "GBRL"):
+#                 #     continue
+#
+#                 if not os.path.isdir(dir_):
+#                     continue
+#                 for filename in os.listdir(dir_):
+#                     f = os.path.join(dir_, filename)
+#                     if "GBRL" in dir_ and ("1000" in f or "500" in f):
+#                         continue
+#                     if os.path.isfile(f):
+#                         print(f)
+#                         problem = FFP(f)
+#                         start = time.time()
+#                         results = runHyperHeuristic(method, ratesOfChange, heuristicsList, problem,
+#                                                     extra, DebugOptions.NONE, isPrint=False)
+#                         end = time.time()
+#                         resultWriter.writerow([str(method.name) + "," + str(f) + "," + str(results[0]) + "," +
+#                                                str(results[1]) + "," + str(round(end-start, 3))])
+
