@@ -1,360 +1,240 @@
-MCTS instances/BBGRL/1000_ep0.0125_0_gilbert_5.in 6 0.12
-MCTS instances/BBGRL/50_ep0.1_0_gilbert_6.in 6 0.12
-MCTS instances/BBGRL/500_ep0.015_0_gilbert_8.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.01_0_gilbert_3.in 6 0.12
-MCTS instances/BBGRL/100_ep0.1_0_gilbert_9.in 6 0.12
-MCTS instances/BBGRL/100_ep0.075_0_gilbert_6.in 6 0.12
-MCTS instances/BBGRL/500_ep0.02_0_gilbert_9.in 6 0.12
-MCTS instances/BBGRL/500_ep0.025_0_gilbert_1.in 6 0.12
-MCTS instances/BBGRL/100_ep0.05_0_gilbert_8.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.0075_0_gilbert_8.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.0125_0_gilbert_1.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.01_0_gilbert_7.in 6 0.12
-MCTS instances/BBGRL/50_ep0.1_0_gilbert_2.in 6 0.12
-MCTS instances/BBGRL/100_ep0.075_0_gilbert_2.in 6 0.12
-MCTS instances/BBGRL/500_ep0.025_0_gilbert_5.in 6 0.12
-MCTS instances/BBGRL/50_ep0.2_0_gilbert_8.in 6 0.12
-MCTS instances/BBGRL/50_ep0.15_0_gilbert_9.in 6 0.12
-MCTS instances/BBGRL/50_ep0.1_0_gilbert_3.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.01_0_gilbert_6.in 6 0.12
-MCTS instances/BBGRL/100_ep0.075_0_gilbert_3.in 6 0.12
-MCTS instances/BBGRL/500_ep0.025_0_gilbert_4.in 6 0.12
-MCTS instances/BBGRL/50_ep0.2_0_gilbert_9.in 6 0.12
-MCTS instances/BBGRL/50_ep0.15_0_gilbert_8.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.0125_0_gilbert_4.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.01_0_gilbert_2.in 6 0.12
-MCTS instances/BBGRL/500_ep0.015_0_gilbert_9.in 6 0.12
-MCTS instances/BBGRL/50_ep0.1_0_gilbert_7.in 6 0.12
-MCTS instances/BBGRL/100_ep0.1_0_gilbert_8.in 6 0.12
-MCTS instances/BBGRL/100_ep0.075_0_gilbert_7.in 6 0.12
-MCTS instances/BBGRL/500_ep0.02_0_gilbert_8.in 6 0.12
-MCTS instances/BBGRL/50_ep0.15_0_gilbert_10.in 6 0.12
-MCTS instances/BBGRL/100_ep0.05_0_gilbert_9.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.01_0_gilbert_10.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.0075_0_gilbert_9.in 6 0.12
-MCTS instances/BBGRL/500_ep0.02_0_gilbert_3.in 6 0.12
-MCTS instances/BBGRL/100_ep0.1_0_gilbert_3.in 6 0.12
-MCTS instances/BBGRL/500_ep0.015_0_gilbert_2.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.01_0_gilbert_9.in 6 0.12
-MCTS instances/BBGRL/100_ep0.05_0_gilbert_2.in 6 0.12
-MCTS instances/BBGRL/500_ep0.02_0_gilbert_10.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.0075_0_gilbert_2.in 6 0.12
-MCTS instances/BBGRL/50_ep0.15_0_gilbert_7.in 6 0.12
-MCTS instances/BBGRL/50_ep0.2_0_gilbert_6.in 6 0.12
-MCTS instances/BBGRL/500_ep0.015_0_gilbert_10.in 6 0.12
-MCTS instances/BBGRL/500_ep0.02_0_gilbert_7.in 6 0.12
-MCTS instances/BBGRL/100_ep0.075_0_gilbert_8.in 6 0.12
-MCTS instances/BBGRL/100_ep0.1_0_gilbert_7.in 6 0.12
-MCTS instances/BBGRL/500_ep0.015_0_gilbert_6.in 6 0.12
-MCTS instances/BBGRL/50_ep0.1_0_gilbert_8.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.0075_0_gilbert_6.in 6 0.12
-MCTS instances/BBGRL/100_ep0.05_0_gilbert_6.in 6 0.12
-MCTS instances/BBGRL/50_ep0.15_0_gilbert_3.in 6 0.12
-MCTS instances/BBGRL/50_ep0.2_0_gilbert_2.in 6 0.12
-MCTS instances/BBGRL/500_ep0.02_0_gilbert_6.in 6 0.12
-MCTS instances/BBGRL/50_ep0.2_0_gilbert_10.in 6 0.12
-MCTS instances/BBGRL/100_ep0.075_0_gilbert_9.in 6 0.12
-MCTS instances/BBGRL/100_ep0.1_0_gilbert_6.in 6 0.12
-MCTS instances/BBGRL/50_ep0.1_0_gilbert_9.in 6 0.12
-MCTS instances/BBGRL/500_ep0.015_0_gilbert_7.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.0075_0_gilbert_7.in 6 0.12
-MCTS instances/BBGRL/100_ep0.05_0_gilbert_7.in 6 0.12
-MCTS instances/BBGRL/50_ep0.15_0_gilbert_2.in 6 0.12
-MCTS instances/BBGRL/50_ep0.2_0_gilbert_3.in 6 0.12
-MCTS instances/BBGRL/500_ep0.02_0_gilbert_2.in 6 0.12
-MCTS instances/BBGRL/100_ep0.1_0_gilbert_2.in 6 0.12
-MCTS instances/BBGRL/100_ep0.075_0_gilbert_10.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.01_0_gilbert_8.in 6 0.12
-MCTS instances/BBGRL/500_ep0.015_0_gilbert_3.in 6 0.12
-MCTS instances/BBGRL/100_ep0.05_0_gilbert_3.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.0075_0_gilbert_3.in 6 0.12
-MCTS instances/BBGRL/50_ep0.15_0_gilbert_6.in 6 0.12
-MCTS instances/BBGRL/50_ep0.2_0_gilbert_7.in 6 0.12
-MCTS instances/BBGRL/100_ep0.05_0_gilbert_10.in 6 0.12
-MCTS instances/BBGRL/100_ep0.1_0_gilbert_5.in 6 0.12
-MCTS instances/BBGRL/500_ep0.02_0_gilbert_5.in 6 0.12
-MCTS instances/BBGRL/500_ep0.025_0_gilbert_10.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.0125_0_gilbert_9.in 6 0.12
-MCTS instances/BBGRL/500_ep0.015_0_gilbert_4.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.0075_0_gilbert_10.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.0075_0_gilbert_4.in 6 0.12
-MCTS instances/BBGRL/100_ep0.05_0_gilbert_4.in 6 0.12
-MCTS instances/BBGRL/100_ep0.1_0_gilbert_10.in 6 0.12
-MCTS instances/BBGRL/50_ep0.15_0_gilbert_1.in 6 0.12
-MCTS instances/BBGRL/100_ep0.1_0_gilbert_1.in 6 0.12
-MCTS instances/BBGRL/500_ep0.02_0_gilbert_1.in 6 0.12
-MCTS instances/BBGRL/500_ep0.025_0_gilbert_9.in 6 0.12
-MCTS instances/BBGRL/50_ep0.2_0_gilbert_4.in 6 0.12
-MCTS instances/BBGRL/50_ep0.15_0_gilbert_5.in 6 0.12
-MCTS instances/BBGRL/500_ep0.015_0_gilbert_1.in 6 0.12
-MCTS instances/BBGRL/100_ep0.05_0_gilbert_1.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.0075_0_gilbert_1.in 6 0.12
-MCTS instances/BBGRL/500_ep0.025_0_gilbert_8.in 6 0.12
-MCTS instances/BBGRL/50_ep0.2_0_gilbert_5.in 6 0.12
-MCTS instances/BBGRL/50_ep0.15_0_gilbert_4.in 6 0.12
-MCTS instances/BBGRL/100_ep0.1_0_gilbert_4.in 6 0.12
-MCTS instances/BBGRL/500_ep0.02_0_gilbert_4.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.0125_0_gilbert_8.in 6 0.12
-MCTS instances/BBGRL/500_ep0.015_0_gilbert_5.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.0075_0_gilbert_5.in 6 0.12
-MCTS instances/BBGRL/100_ep0.05_0_gilbert_5.in 6 0.12
-MCTS instances/BBGRL/50_ep0.2_0_gilbert_1.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.0125_0_gilbert_3.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.01_0_gilbert_5.in 6 0.12
-MCTS instances/BBGRL/500_ep0.025_0_gilbert_7.in 6 0.12
-MCTS instances/BBGRL/50_ep0.1_0_gilbert_10.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.0125_0_gilbert_7.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.01_0_gilbert_1.in 6 0.12
-MCTS instances/BBGRL/50_ep0.1_0_gilbert_4.in 6 0.12
-MCTS instances/BBGRL/100_ep0.075_0_gilbert_4.in 6 0.12
-MCTS instances/BBGRL/500_ep0.025_0_gilbert_3.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.0125_0_gilbert_10.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.0125_0_gilbert_6.in 6 0.12
-MCTS instances/BBGRL/50_ep0.1_0_gilbert_5.in 6 0.12
-MCTS instances/BBGRL/100_ep0.075_0_gilbert_5.in 6 0.12
-MCTS instances/BBGRL/500_ep0.025_0_gilbert_2.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.0125_0_gilbert_2.in 6 0.12
-MCTS instances/BBGRL/1000_ep0.01_0_gilbert_4.in 6 0.12
-MCTS instances/BBGRL/50_ep0.1_0_gilbert_1.in 6 0.12
-MCTS instances/BBGRL/100_ep0.075_0_gilbert_1.in 6 0.12
-MCTS instances/BBGRL/500_ep0.025_0_gilbert_6.in 6 0.12
-MCTS instances/GBRL/50_ep0.25_0_gilbert_4.in 6 0.12
-MCTS instances/GBRL/1000_r0.065_0_geom_2.gin 6 0.12
-MCTS instances/GBRL/1000_ep0.0125_0_gilbert_5.in 6 0.12
-MCTS instances/GBRL/500_ep0.015_0_gilbert_8.in 6 0.12
-MCTS instances/GBRL/1000_ep0.01_0_gilbert_3.in 6 0.12
-MCTS instances/GBRL/100_r0.219_0_geom_5.gin 6 0.12
-MCTS instances/GBRL/50_r0.259_0_geom_2.gin 6 0.12
-MCTS instances/GBRL/100_ep0.1_0_gilbert_9.in 6 0.12
-MCTS instances/GBRL/500_r0.093_0_geom_8.gin 6 0.12
-MCTS instances/GBRL/100_ep0.075_0_gilbert_6.in 6 0.12
-MCTS instances/GBRL/500_ep0.02_0_gilbert_9.in 6 0.12
-MCTS instances/GBRL/500_r0.083_0_geom_6.gin 6 0.12
-MCTS instances/GBRL/500_ep0.025_0_gilbert_1.in 6 0.12
-MCTS instances/GBRL/500_r0.083_0_geom_7.gin 6 0.12
-MCTS instances/GBRL/500_r0.093_0_geom_9.gin 6 0.12
-MCTS instances/GBRL/100_r0.219_0_geom_4.gin 6 0.12
-MCTS instances/GBRL/50_r0.259_0_geom_3.gin 6 0.12
-MCTS instances/GBRL/1000_r0.065_0_geom_3.gin 6 0.12
-MCTS instances/GBRL/1000_ep0.0075_0_gilbert_8.in 6 0.12
-MCTS instances/GBRL/1000_r0.065_0_geom_1.gin 6 0.12
-MCTS instances/GBRL/50_r0.259_0_geom_1.gin 6 0.12
-MCTS instances/GBRL/100_r0.219_0_geom_6.gin 6 0.12
-MCTS instances/GBRL/1000_ep0.0125_0_gilbert_1.in 6 0.12
-MCTS instances/GBRL/1000_ep0.01_0_gilbert_7.in 6 0.12
-MCTS instances/GBRL/500_r0.083_0_geom_5.gin 6 0.12
-MCTS instances/GBRL/100_ep0.075_0_gilbert_2.in 6 0.12
-MCTS instances/GBRL/500_r0.083_0_geom_4.gin 6 0.12
-MCTS instances/GBRL/500_ep0.025_0_gilbert_5.in 6 0.12
-MCTS instances/GBRL/50_ep0.2_0_gilbert_8.in 6 0.12
-MCTS instances/GBRL/50_ep0.15_0_gilbert_9.in 6 0.12
-MCTS instances/GBRL/100_r0.219_0_geom_7.gin 6 0.12
-MCTS instances/GBRL/50_r0.299_0_geom_10.gin 6 0.12
-MCTS instances/GBRL/1000_r0.065_0_geom_4.gin 6 0.12
-MCTS instances/GBRL/50_ep0.25_0_gilbert_1.in 6 0.12
-MCTS instances/GBRL/100_r0.219_0_geom_3.gin 6 0.12
-MCTS instances/GBRL/50_r0.259_0_geom_4.gin 6 0.12
-MCTS instances/GBRL/1000_ep0.01_0_gilbert_6.in 6 0.12
-MCTS instances/GBRL/100_ep0.075_0_gilbert_3.in 6 0.12
-MCTS instances/GBRL/100_ep0.125_0_gilbert_10.in 6 0.12
-MCTS instances/GBRL/500_ep0.025_0_gilbert_4.in 6 0.12
-MCTS instances/GBRL/500_r0.083_0_geom_1.gin 6 0.12
-MCTS instances/GBRL/50_ep0.2_0_gilbert_9.in 6 0.12
-MCTS instances/GBRL/50_ep0.15_0_gilbert_8.in 6 0.12
-MCTS instances/GBRL/100_r0.219_0_geom_2.gin 6 0.12
-MCTS instances/GBRL/50_r0.259_0_geom_5.gin 6 0.12
-MCTS instances/GBRL/500_r0.071_0_geom_10.gin 6 0.12
-MCTS instances/GBRL/1000_r0.065_0_geom_5.gin 6 0.12
-MCTS instances/GBRL/50_ep0.25_0_gilbert_5.in 6 0.12
-MCTS instances/GBRL/1000_ep0.0125_0_gilbert_4.in 6 0.12
-MCTS instances/GBRL/1000_ep0.01_0_gilbert_2.in 6 0.12
-MCTS instances/GBRL/1000_r0.065_0_geom_7.gin 6 0.12
-MCTS instances/GBRL/500_ep0.015_0_gilbert_9.in 6 0.12
-MCTS instances/GBRL/50_r0.259_0_geom_7.gin 6 0.12
-MCTS instances/GBRL/100_ep0.1_0_gilbert_8.in 6 0.12
-MCTS instances/GBRL/100_ep0.075_0_gilbert_7.in 6 0.12
-MCTS instances/GBRL/500_ep0.02_0_gilbert_8.in 6 0.12
-MCTS instances/GBRL/500_r0.083_0_geom_3.gin 6 0.12
-MCTS instances/GBRL/500_r0.083_0_geom_2.gin 6 0.12
-MCTS instances/GBRL/50_ep0.15_0_gilbert_10.in 6 0.12
-MCTS instances/GBRL/50_r0.259_0_geom_6.gin 6 0.12
-MCTS instances/GBRL/100_r0.219_0_geom_1.gin 6 0.12
-MCTS instances/GBRL/1000_r0.065_0_geom_6.gin 6 0.12
-MCTS instances/GBRL/1000_ep0.01_0_gilbert_10.in 6 0.12
-MCTS instances/GBRL/1000_ep0.0075_0_gilbert_9.in 6 0.12
-MCTS instances/GBRL/500_ep0.02_0_gilbert_3.in 6 0.12
-MCTS instances/GBRL/100_ep0.1_0_gilbert_3.in 6 0.12
-MCTS instances/GBRL/500_r0.071_0_geom_2.gin 6 0.12
-MCTS instances/GBRL/100_r0.195_0_geom_10.gin 6 0.12
-MCTS instances/GBRL/500_ep0.015_0_gilbert_2.in 6 0.12
-MCTS instances/GBRL/1000_r0.058_0_geom_3.gin 6 0.12
-MCTS instances/GBRL/1000_ep0.01_0_gilbert_9.in 6 0.12
-MCTS instances/GBRL/100_r0.195_0_geom_8.gin 6 0.12
-MCTS instances/GBRL/50_r0.334_0_geom_8.gin 6 0.12
-MCTS instances/GBRL/1000_r0.05_0_geom_8.gin 6 0.12
-MCTS instances/GBRL/1000_r0.05_0_geom_9.gin 6 0.12
-MCTS instances/GBRL/500_ep0.02_0_gilbert_10.in 6 0.12
-MCTS instances/GBRL/100_r0.169_0_geom_1.gin 6 0.12
-MCTS instances/GBRL/50_r0.334_0_geom_9.gin 6 0.12
-MCTS instances/GBRL/100_r0.195_0_geom_9.gin 6 0.12
-MCTS instances/GBRL/1000_ep0.0075_0_gilbert_2.in 6 0.12
-MCTS instances/GBRL/1000_r0.058_0_geom_2.gin 6 0.12
-MCTS instances/GBRL/50_ep0.15_0_gilbert_7.in 6 0.12
-MCTS instances/GBRL/100_r0.219_0_geom_10.gin 6 0.12
-MCTS instances/GBRL/500_r0.071_0_geom_3.gin 6 0.12
-MCTS instances/GBRL/50_ep0.2_0_gilbert_6.in 6 0.12
-MCTS instances/GBRL/100_ep0.125_0_gilbert_1.in 6 0.12
-MCTS instances/GBRL/1000_r0.058_0_geom_10.gin 6 0.12
-MCTS instances/GBRL/500_ep0.015_0_gilbert_10.in 6 0.12
-MCTS instances/GBRL/500_ep0.02_0_gilbert_7.in 6 0.12
-MCTS instances/GBRL/100_ep0.075_0_gilbert_8.in 6 0.12
-MCTS instances/GBRL/100_ep0.1_0_gilbert_7.in 6 0.12
-MCTS instances/GBRL/500_r0.071_0_geom_1.gin 6 0.12
-MCTS instances/GBRL/500_ep0.015_0_gilbert_6.in 6 0.12
-MCTS instances/GBRL/100_r0.169_0_geom_3.gin 6 0.12
-MCTS instances/GBRL/1000_ep0.0075_0_gilbert_6.in 6 0.12
-MCTS instances/GBRL/100_r0.169_0_geom_2.gin 6 0.12
-MCTS instances/GBRL/1000_r0.058_0_geom_1.gin 6 0.12
-MCTS instances/GBRL/100_ep0.125_0_gilbert_5.in 6 0.12
-MCTS instances/GBRL/50_ep0.15_0_gilbert_3.in 6 0.12
-MCTS instances/GBRL/1000_r0.065_0_geom_10.gin 6 0.12
-MCTS instances/GBRL/50_ep0.2_0_gilbert_2.in 6 0.12
-MCTS instances/GBRL/500_ep0.02_0_gilbert_6.in 6 0.12
-MCTS instances/GBRL/50_ep0.2_0_gilbert_10.in 6 0.12
-MCTS instances/GBRL/100_ep0.075_0_gilbert_9.in 6 0.12
-MCTS instances/GBRL/100_ep0.1_0_gilbert_6.in 6 0.12
-MCTS instances/GBRL/500_r0.071_0_geom_4.gin 6 0.12
-MCTS instances/GBRL/1000_r0.058_0_geom_5.gin 6 0.12
-MCTS instances/GBRL/500_ep0.015_0_gilbert_7.in 6 0.12
-MCTS instances/GBRL/100_r0.169_0_geom_6.gin 6 0.12
-MCTS instances/GBRL/1000_ep0.0075_0_gilbert_7.in 6 0.12
-MCTS instances/GBRL/100_r0.169_0_geom_7.gin 6 0.12
-MCTS instances/GBRL/1000_r0.05_0_geom_10.gin 6 0.12
-MCTS instances/GBRL/1000_r0.058_0_geom_4.gin 6 0.12
-MCTS instances/GBRL/500_r0.071_0_geom_5.gin 6 0.12
-MCTS instances/GBRL/100_ep0.125_0_gilbert_4.in 6 0.12
-MCTS instances/GBRL/50_ep0.15_0_gilbert_2.in 6 0.12
-MCTS instances/GBRL/50_ep0.2_0_gilbert_3.in 6 0.12
-MCTS instances/GBRL/500_ep0.02_0_gilbert_2.in 6 0.12
-MCTS instances/GBRL/50_r0.299_0_geom_9.gin 6 0.12
-MCTS instances/GBRL/100_ep0.1_0_gilbert_2.in 6 0.12
-MCTS instances/GBRL/50_r0.259_0_geom_10.gin 6 0.12
-MCTS instances/GBRL/500_r0.071_0_geom_7.gin 6 0.12
-MCTS instances/GBRL/100_ep0.075_0_gilbert_10.in 6 0.12
-MCTS instances/GBRL/1000_r0.058_0_geom_6.gin 6 0.12
-MCTS instances/GBRL/1000_ep0.01_0_gilbert_8.in 6 0.12
-MCTS instances/GBRL/500_ep0.015_0_gilbert_3.in 6 0.12
-MCTS instances/GBRL/100_r0.169_0_geom_5.gin 6 0.12
-MCTS instances/GBRL/100_r0.169_0_geom_4.gin 6 0.12
-MCTS instances/GBRL/1000_ep0.0075_0_gilbert_3.in 6 0.12
-MCTS instances/GBRL/1000_r0.058_0_geom_7.gin 6 0.12
-MCTS instances/GBRL/50_ep0.15_0_gilbert_6.in 6 0.12
-MCTS instances/GBRL/500_r0.071_0_geom_6.gin 6 0.12
-MCTS instances/GBRL/50_ep0.2_0_gilbert_7.in 6 0.12
-MCTS instances/GBRL/50_r0.334_0_geom_10.gin 6 0.12
-MCTS instances/GBRL/50_r0.299_0_geom_8.gin 6 0.12
-MCTS instances/GBRL/50_r0.299_0_geom_5.gin 6 0.12
-MCTS instances/GBRL/100_ep0.1_0_gilbert_5.in 6 0.12
-MCTS instances/GBRL/500_ep0.02_0_gilbert_5.in 6 0.12
-MCTS instances/GBRL/500_ep0.025_0_gilbert_10.in 6 0.12
-MCTS instances/GBRL/100_r0.195_0_geom_1.gin 6 0.12
-MCTS instances/GBRL/50_ep0.25_0_gilbert_8.in 6 0.12
-MCTS instances/GBRL/50_r0.334_0_geom_1.gin 6 0.12
-MCTS instances/GBRL/100_r0.169_0_geom_9.gin 6 0.12
-MCTS instances/GBRL/1000_r0.05_0_geom_1.gin 6 0.12
-MCTS instances/GBRL/1000_ep0.0125_0_gilbert_9.in 6 0.12
-MCTS instances/GBRL/500_ep0.015_0_gilbert_4.in 6 0.12
-MCTS instances/GBRL/1000_ep0.0075_0_gilbert_10.in 6 0.12
-MCTS instances/GBRL/100_r0.169_0_geom_8.gin 6 0.12
-MCTS instances/GBRL/1000_ep0.0075_0_gilbert_4.in 6 0.12
-MCTS instances/GBRL/100_ep0.1_0_gilbert_10.in 6 0.12
-MCTS instances/GBRL/100_ep0.125_0_gilbert_7.in 6 0.12
-MCTS instances/GBRL/50_ep0.15_0_gilbert_1.in 6 0.12
-MCTS instances/GBRL/50_r0.299_0_geom_4.gin 6 0.12
-MCTS instances/GBRL/100_ep0.1_0_gilbert_1.in 6 0.12
-MCTS instances/GBRL/50_r0.299_0_geom_6.gin 6 0.12
-MCTS instances/GBRL/500_ep0.02_0_gilbert_1.in 6 0.12
-MCTS instances/GBRL/500_r0.071_0_geom_8.gin 6 0.12
-MCTS instances/GBRL/1000_r0.058_0_geom_9.gin 6 0.12
-MCTS instances/GBRL/100_r0.195_0_geom_2.gin 6 0.12
-MCTS instances/GBRL/50_r0.334_0_geom_2.gin 6 0.12
-MCTS instances/GBRL/1000_r0.05_0_geom_2.gin 6 0.12
-MCTS instances/GBRL/1000_r0.05_0_geom_3.gin 6 0.12
-MCTS instances/GBRL/50_r0.334_0_geom_3.gin 6 0.12
-MCTS instances/GBRL/100_r0.195_0_geom_3.gin 6 0.12
-MCTS instances/GBRL/1000_r0.058_0_geom_8.gin 6 0.12
-MCTS instances/GBRL/500_r0.071_0_geom_9.gin 6 0.12
-MCTS instances/GBRL/500_ep0.025_0_gilbert_9.in 6 0.12
-MCTS instances/GBRL/50_ep0.2_0_gilbert_4.in 6 0.12
-MCTS instances/GBRL/50_ep0.15_0_gilbert_5.in 6 0.12
-MCTS instances/GBRL/100_ep0.125_0_gilbert_3.in 6 0.12
-MCTS instances/GBRL/50_r0.299_0_geom_7.gin 6 0.12
-MCTS instances/GBRL/50_r0.299_0_geom_3.gin 6 0.12
-MCTS instances/GBRL/500_ep0.015_0_gilbert_1.in 6 0.12
-MCTS instances/GBRL/100_r0.195_0_geom_7.gin 6 0.12
-MCTS instances/GBRL/50_r0.334_0_geom_7.gin 6 0.12
-MCTS instances/GBRL/1000_r0.05_0_geom_7.gin 6 0.12
-MCTS instances/GBRL/1000_r0.05_0_geom_6.gin 6 0.12
-MCTS instances/GBRL/50_r0.334_0_geom_6.gin 6 0.12
-MCTS instances/GBRL/100_r0.195_0_geom_6.gin 6 0.12
-MCTS instances/GBRL/1000_ep0.0075_0_gilbert_1.in 6 0.12
-MCTS instances/GBRL/500_ep0.025_0_gilbert_8.in 6 0.12
-MCTS instances/GBRL/50_ep0.2_0_gilbert_5.in 6 0.12
-MCTS instances/GBRL/50_ep0.15_0_gilbert_4.in 6 0.12
-MCTS instances/GBRL/100_ep0.125_0_gilbert_2.in 6 0.12
-MCTS instances/GBRL/50_r0.299_0_geom_2.gin 6 0.12
-MCTS instances/GBRL/100_ep0.1_0_gilbert_4.in 6 0.12
-MCTS instances/GBRL/500_ep0.02_0_gilbert_4.in 6 0.12
-MCTS instances/GBRL/100_r0.195_0_geom_4.gin 6 0.12
-MCTS instances/GBRL/50_ep0.25_0_gilbert_9.in 6 0.12
-MCTS instances/GBRL/50_r0.334_0_geom_4.gin 6 0.12
-MCTS instances/GBRL/1000_ep0.0125_0_gilbert_8.in 6 0.12
-MCTS instances/GBRL/1000_r0.05_0_geom_4.gin 6 0.12
-MCTS instances/GBRL/500_ep0.015_0_gilbert_5.in 6 0.12
-MCTS instances/GBRL/1000_r0.05_0_geom_5.gin 6 0.12
-MCTS instances/GBRL/1000_ep0.0075_0_gilbert_5.in 6 0.12
-MCTS instances/GBRL/50_r0.334_0_geom_5.gin 6 0.12
-MCTS instances/GBRL/100_r0.195_0_geom_5.gin 6 0.12
-MCTS instances/GBRL/100_ep0.125_0_gilbert_6.in 6 0.12
-MCTS instances/GBRL/50_ep0.2_0_gilbert_1.in 6 0.12
-MCTS instances/GBRL/50_r0.299_0_geom_1.gin 6 0.12
-MCTS instances/GBRL/1000_ep0.0125_0_gilbert_3.in 6 0.12
-MCTS instances/GBRL/1000_ep0.01_0_gilbert_5.in 6 0.12
-MCTS instances/GBRL/50_ep0.25_0_gilbert_2.in 6 0.12
-MCTS instances/GBRL/500_r0.093_0_geom_1.gin 6 0.12
-MCTS instances/GBRL/500_ep0.025_0_gilbert_7.in 6 0.12
-MCTS instances/GBRL/1000_ep0.0125_0_gilbert_7.in 6 0.12
-MCTS instances/GBRL/1000_ep0.01_0_gilbert_1.in 6 0.12
-MCTS instances/GBRL/50_ep0.25_0_gilbert_6.in 6 0.12
-MCTS instances/GBRL/1000_r0.065_0_geom_8.gin 6 0.12
-MCTS instances/GBRL/50_r0.259_0_geom_8.gin 6 0.12
-MCTS instances/GBRL/500_r0.093_0_geom_2.gin 6 0.12
-MCTS instances/GBRL/100_ep0.075_0_gilbert_4.in 6 0.12
-MCTS instances/GBRL/500_r0.093_0_geom_10.gin 6 0.12
-MCTS instances/GBRL/500_ep0.025_0_gilbert_3.in 6 0.12
-MCTS instances/GBRL/100_ep0.125_0_gilbert_9.in 6 0.12
-MCTS instances/GBRL/500_r0.093_0_geom_3.gin 6 0.12
-MCTS instances/GBRL/50_r0.259_0_geom_9.gin 6 0.12
-MCTS instances/GBRL/1000_ep0.0125_0_gilbert_10.in 6 0.12
-MCTS instances/GBRL/1000_r0.065_0_geom_9.gin 6 0.12
-MCTS instances/GBRL/1000_ep0.0125_0_gilbert_6.in 6 0.12
-MCTS instances/GBRL/50_ep0.25_0_gilbert_7.in 6 0.12
-MCTS instances/GBRL/500_r0.093_0_geom_7.gin 6 0.12
-MCTS instances/GBRL/100_ep0.075_0_gilbert_5.in 6 0.12
-MCTS instances/GBRL/500_r0.083_0_geom_9.gin 6 0.12
-MCTS instances/GBRL/500_ep0.025_0_gilbert_2.in 6 0.12
-MCTS instances/GBRL/500_r0.083_0_geom_8.gin 6 0.12
-MCTS instances/GBRL/500_r0.093_0_geom_6.gin 6 0.12
-MCTS instances/GBRL/100_ep0.125_0_gilbert_8.in 6 0.12
-MCTS instances/GBRL/500_r0.083_0_geom_10.gin 6 0.12
-MCTS instances/GBRL/50_ep0.25_0_gilbert_10.in 6 0.12
-MCTS instances/GBRL/100_r0.219_0_geom_9.gin 6 0.12
-MCTS instances/GBRL/100_r0.169_0_geom_10.gin 6 0.12
-MCTS instances/GBRL/1000_ep0.0125_0_gilbert_2.in 6 0.12
-MCTS instances/GBRL/1000_ep0.01_0_gilbert_4.in 6 0.12
-MCTS instances/GBRL/50_ep0.25_0_gilbert_3.in 6 0.12
-MCTS instances/GBRL/500_r0.093_0_geom_4.gin 6 0.12
-MCTS instances/GBRL/100_ep0.075_0_gilbert_1.in 6 0.12
-MCTS instances/GBRL/500_r0.093_0_geom_5.gin 6 0.12
-MCTS instances/GBRL/500_ep0.025_0_gilbert_6.in 6 0.12
-MCTS instances/GBRL/100_r0.219_0_geom_8.gin 6 0.12
+MCTS,instances/BBGRL/1000_ep0.0125_0_gilbert_5.in,4,0.004,23.978
+MCTS,instances/BBGRL/50_ep0.1_0_gilbert_6.in,7,0.14,0.135
+MCTS,instances/BBGRL/500_ep0.015_0_gilbert_8.in,5,0.01,12.745
+MCTS,instances/BBGRL/1000_ep0.01_0_gilbert_3.in,5,0.005,53.396
+MCTS,instances/BBGRL/100_ep0.1_0_gilbert_9.in,3,0.03,0.159
+MCTS,instances/BBGRL/100_ep0.075_0_gilbert_6.in,4,0.04,0.272
+MCTS,instances/BBGRL/500_ep0.02_0_gilbert_9.in,4,0.008,8.579
+MCTS,instances/BBGRL/500_ep0.025_0_gilbert_1.in,4,0.008,12.982
+MCTS,instances/BBGRL/100_ep0.05_0_gilbert_8.in,6,0.06,1.035
+MCTS,instances/BBGRL/1000_ep0.0075_0_gilbert_8.in,6,0.006,170.738
+MCTS,instances/BBGRL/1000_ep0.0125_0_gilbert_1.in,4,0.004,41.74
+MCTS,instances/BBGRL/1000_ep0.01_0_gilbert_7.in,4,0.004,42.159
+MCTS,instances/BBGRL/50_ep0.1_0_gilbert_2.in,5,0.1,0.147
+MCTS,instances/BBGRL/100_ep0.075_0_gilbert_2.in,4,0.04,0.323
+MCTS,instances/BBGRL/500_ep0.025_0_gilbert_5.in,4,0.008,7.644
+MCTS,instances/BBGRL/50_ep0.2_0_gilbert_8.in,3,0.06,0.032
+MCTS,instances/BBGRL/50_ep0.15_0_gilbert_9.in,4,0.08,0.086
+MCTS,instances/BBGRL/50_ep0.1_0_gilbert_3.in,9,0.18,0.101
+MCTS,instances/BBGRL/1000_ep0.01_0_gilbert_6.in,5,0.005,61.11
+MCTS,instances/BBGRL/100_ep0.075_0_gilbert_3.in,4,0.04,0.323
+MCTS,instances/BBGRL/500_ep0.025_0_gilbert_4.in,4,0.008,6.422
+MCTS,instances/BBGRL/50_ep0.2_0_gilbert_9.in,3,0.06,0.032
+MCTS,instances/BBGRL/50_ep0.15_0_gilbert_8.in,3,0.06,0.034
+MCTS,instances/BBGRL/1000_ep0.0125_0_gilbert_4.in,4,0.004,30.503
+MCTS,instances/BBGRL/1000_ep0.01_0_gilbert_2.in,5,0.005,56.939
+MCTS,instances/BBGRL/500_ep0.015_0_gilbert_9.in,5,0.01,13.591
+MCTS,instances/BBGRL/50_ep0.1_0_gilbert_7.in,4,0.08,0.069
+MCTS,instances/BBGRL/100_ep0.1_0_gilbert_8.in,3,0.03,0.116
+MCTS,instances/BBGRL/100_ep0.075_0_gilbert_7.in,4,0.04,0.303
+MCTS,instances/BBGRL/500_ep0.02_0_gilbert_8.in,4,0.008,11.387
+MCTS,instances/BBGRL/50_ep0.15_0_gilbert_10.in,3,0.06,0.055
+MCTS,instances/BBGRL/100_ep0.05_0_gilbert_9.in,9,0.09,1.311
+MCTS,instances/BBGRL/1000_ep0.01_0_gilbert_10.in,4,0.004,52.003
+MCTS,instances/BBGRL/1000_ep0.0075_0_gilbert_9.in,5,0.005,73.382
+MCTS,instances/BBGRL/500_ep0.02_0_gilbert_3.in,4,0.008,6.949
+MCTS,instances/BBGRL/100_ep0.1_0_gilbert_3.in,3,0.03,0.12
+MCTS,instances/BBGRL/500_ep0.015_0_gilbert_2.in,5,0.01,18.016
+MCTS,instances/BBGRL/1000_ep0.01_0_gilbert_9.in,5,0.005,65.035
+MCTS,instances/BBGRL/100_ep0.05_0_gilbert_2.in,5,0.05,0.617
+MCTS,instances/BBGRL/500_ep0.02_0_gilbert_10.in,4,0.008,6.496
+MCTS,instances/BBGRL/1000_ep0.0075_0_gilbert_2.in,5,0.005,57.895
+MCTS,instances/BBGRL/50_ep0.15_0_gilbert_7.in,3,0.06,0.031
+MCTS,instances/BBGRL/50_ep0.2_0_gilbert_6.in,3,0.06,0.032
+MCTS,instances/BBGRL/500_ep0.015_0_gilbert_10.in,5,0.01,14.156
+MCTS,instances/BBGRL/500_ep0.02_0_gilbert_7.in,5,0.01,13.628
+MCTS,instances/BBGRL/100_ep0.075_0_gilbert_8.in,4,0.04,0.281
+MCTS,instances/BBGRL/100_ep0.1_0_gilbert_7.in,4,0.04,0.272
+MCTS,instances/BBGRL/500_ep0.015_0_gilbert_6.in,4,0.008,8.956
+MCTS,instances/BBGRL/50_ep0.1_0_gilbert_8.in,6,0.12,0.307
+MCTS,instances/BBGRL/1000_ep0.0075_0_gilbert_6.in,6,0.006,131.955
+MCTS,instances/BBGRL/100_ep0.05_0_gilbert_6.in,5,0.05,0.554
+MCTS,instances/BBGRL/50_ep0.15_0_gilbert_3.in,4,0.08,0.071
+MCTS,instances/BBGRL/50_ep0.2_0_gilbert_2.in,3,0.06,0.032
+MCTS,instances/BBGRL/500_ep0.02_0_gilbert_6.in,4,0.008,7.687
+MCTS,instances/BBGRL/50_ep0.2_0_gilbert_10.in,3,0.06,0.036
+MCTS,instances/BBGRL/100_ep0.075_0_gilbert_9.in,4,0.04,0.292
+MCTS,instances/BBGRL/100_ep0.1_0_gilbert_6.in,3,0.03,0.199
+MCTS,instances/BBGRL/50_ep0.1_0_gilbert_9.in,4,0.08,0.143
+MCTS,instances/BBGRL/500_ep0.015_0_gilbert_7.in,5,0.01,16.943
+MCTS,instances/BBGRL/1000_ep0.0075_0_gilbert_7.in,7,0.007,174.053
+MCTS,instances/BBGRL/100_ep0.05_0_gilbert_7.in,8,0.08,1.186
+MCTS,instances/BBGRL/50_ep0.15_0_gilbert_2.in,4,0.08,0.229
+MCTS,instances/BBGRL/50_ep0.2_0_gilbert_3.in,4,0.08,0.153
+MCTS,instances/BBGRL/500_ep0.02_0_gilbert_2.in,4,0.008,20.305
+MCTS,instances/BBGRL/100_ep0.1_0_gilbert_2.in,4,0.04,0.381
+MCTS,instances/BBGRL/100_ep0.075_0_gilbert_10.in,4,0.04,0.391
+MCTS,instances/BBGRL/1000_ep0.01_0_gilbert_8.in,5,0.005,129.094
+MCTS,instances/BBGRL/500_ep0.015_0_gilbert_3.in,5,0.01,23.912
+MCTS,instances/BBGRL/100_ep0.05_0_gilbert_3.in,5,0.05,0.868
+MCTS,instances/BBGRL/1000_ep0.0075_0_gilbert_3.in,6,0.006,149.978
+MCTS,instances/BBGRL/50_ep0.15_0_gilbert_6.in,3,0.06,0.034
+MCTS,instances/BBGRL/50_ep0.2_0_gilbert_7.in,3,0.06,0.032
+MCTS,instances/BBGRL/100_ep0.05_0_gilbert_10.in,5,0.05,0.765
+MCTS,instances/BBGRL/100_ep0.1_0_gilbert_5.in,3,0.03,0.128
+MCTS,instances/BBGRL/500_ep0.02_0_gilbert_5.in,4,0.008,6.447
+MCTS,instances/BBGRL/500_ep0.025_0_gilbert_10.in,4,0.008,6.422
+MCTS,instances/BBGRL/1000_ep0.0125_0_gilbert_9.in,4,0.004,26.198
+MCTS,instances/BBGRL/500_ep0.015_0_gilbert_4.in,5,0.01,15.017
+MCTS,instances/BBGRL/1000_ep0.0075_0_gilbert_10.in,5,0.005,53.975
+MCTS,instances/BBGRL/1000_ep0.0075_0_gilbert_4.in,998,0.998,3.625
+MCTS,instances/BBGRL/100_ep0.05_0_gilbert_4.in,5,0.05,0.52
+MCTS,instances/BBGRL/100_ep0.1_0_gilbert_10.in,4,0.04,0.246
+MCTS,instances/BBGRL/50_ep0.15_0_gilbert_1.in,3,0.06,0.048
+MCTS,instances/BBGRL/100_ep0.1_0_gilbert_1.in,3,0.03,0.119
+MCTS,instances/BBGRL/500_ep0.02_0_gilbert_1.in,4,0.008,6.489
+MCTS,instances/BBGRL/500_ep0.025_0_gilbert_9.in,4,0.008,6.533
+MCTS,instances/BBGRL/50_ep0.2_0_gilbert_4.in,3,0.06,0.035
+MCTS,instances/BBGRL/50_ep0.15_0_gilbert_5.in,4,0.08,0.071
+MCTS,instances/BBGRL/500_ep0.015_0_gilbert_1.in,6,0.012,14.327
+MCTS,instances/BBGRL/100_ep0.05_0_gilbert_1.in,7,0.07,0.639
+MCTS,instances/BBGRL/1000_ep0.0075_0_gilbert_1.in,6,0.006,130.134
+MCTS,instances/BBGRL/500_ep0.025_0_gilbert_8.in,4,0.008,7.455
+MCTS,instances/BBGRL/50_ep0.2_0_gilbert_5.in,3,0.06,0.037
+MCTS,instances/BBGRL/50_ep0.15_0_gilbert_4.in,3,0.06,0.061
+MCTS,instances/BBGRL/100_ep0.1_0_gilbert_4.in,3,0.03,0.157
+MCTS,instances/BBGRL/500_ep0.02_0_gilbert_4.in,4,0.008,9.206
+MCTS,instances/BBGRL/1000_ep0.0125_0_gilbert_8.in,4,0.004,29.291
+MCTS,instances/BBGRL/500_ep0.015_0_gilbert_5.in,5,0.01,14.373
+MCTS,instances/BBGRL/1000_ep0.0075_0_gilbert_5.in,6,0.006,190.41
+MCTS,instances/BBGRL/100_ep0.05_0_gilbert_5.in,4,0.04,0.422
+MCTS,instances/BBGRL/50_ep0.2_0_gilbert_1.in,3,0.06,0.048
+MCTS,instances/BBGRL/1000_ep0.0125_0_gilbert_3.in,4,0.004,29.468
+MCTS,instances/BBGRL/1000_ep0.01_0_gilbert_5.in,5,0.005,105.922
+MCTS,instances/BBGRL/500_ep0.025_0_gilbert_7.in,4,0.008,13.622
+MCTS,instances/BBGRL/50_ep0.1_0_gilbert_10.in,6,0.12,0.356
+MCTS,instances/BBGRL/1000_ep0.0125_0_gilbert_7.in,4,0.004,67.123
+MCTS,instances/BBGRL/1000_ep0.01_0_gilbert_1.in,4,0.004,51.977
+MCTS,instances/BBGRL/50_ep0.1_0_gilbert_4.in,4,0.08,0.214
+MCTS,instances/BBGRL/100_ep0.075_0_gilbert_4.in,4,0.04,0.505
+MCTS,instances/BBGRL/500_ep0.025_0_gilbert_3.in,4,0.008,11.133
+MCTS,instances/BBGRL/1000_ep0.0125_0_gilbert_10.in,5,0.005,101.727
+MCTS,instances/BBGRL/1000_ep0.0125_0_gilbert_6.in,4,0.004,37.527
+MCTS,instances/BBGRL/50_ep0.1_0_gilbert_5.in,4,0.08,0.107
+MCTS,instances/BBGRL/100_ep0.075_0_gilbert_5.in,4,0.04,0.261
+MCTS,instances/BBGRL/500_ep0.025_0_gilbert_2.in,4,0.008,6.737
+MCTS,instances/BBGRL/1000_ep0.0125_0_gilbert_2.in,4,0.004,30.278
+MCTS,instances/BBGRL/1000_ep0.01_0_gilbert_4.in,5,0.005,65.591
+MCTS,instances/BBGRL/50_ep0.1_0_gilbert_1.in,6,0.12,0.201
+MCTS,instances/BBGRL/100_ep0.075_0_gilbert_1.in,4,0.04,0.282
+MCTS,instances/BBGRL/500_ep0.025_0_gilbert_6.in,4,0.008,7.132
+MCTS,instances/GBRL/50_ep0.25_0_gilbert_4.in,3,0.06,0.035
+MCTS,instances/GBRL/100_r0.219_0_geom_5.gin,7,0.07,1.88
+MCTS,instances/GBRL/50_r0.259_0_geom_2.gin,6,0.12,0.329
+MCTS,instances/GBRL/100_ep0.1_0_gilbert_9.in,3,0.03,0.178
+MCTS,instances/GBRL/100_ep0.075_0_gilbert_6.in,4,0.04,0.285
+MCTS,instances/GBRL/100_r0.219_0_geom_4.gin,5,0.05,0.643
+MCTS,instances/GBRL/50_r0.259_0_geom_3.gin,33,0.66,0.06
+MCTS,instances/GBRL/50_r0.259_0_geom_1.gin,13,0.26,0.128
+MCTS,instances/GBRL/100_r0.219_0_geom_6.gin,7,0.07,2.423
+MCTS,instances/GBRL/100_ep0.075_0_gilbert_2.in,4,0.04,0.254
+MCTS,instances/GBRL/50_ep0.2_0_gilbert_8.in,3,0.06,0.031
+MCTS,instances/GBRL/50_ep0.15_0_gilbert_9.in,4,0.08,0.068
+MCTS,instances/GBRL/100_r0.219_0_geom_7.gin,5,0.05,0.695
+MCTS,instances/GBRL/50_r0.299_0_geom_10.gin,4,0.08,0.091
+MCTS,instances/GBRL/50_ep0.25_0_gilbert_1.in,3,0.06,0.052
+MCTS,instances/GBRL/100_r0.219_0_geom_3.gin,6,0.06,1.435
+MCTS,instances/GBRL/50_r0.259_0_geom_4.gin,7,0.14,0.202
+MCTS,instances/GBRL/100_ep0.075_0_gilbert_3.in,4,0.04,0.263
+MCTS,instances/GBRL/100_ep0.125_0_gilbert_10.in,3,0.03,0.122
+MCTS,instances/GBRL/50_ep0.2_0_gilbert_9.in,3,0.06,0.034
+MCTS,instances/GBRL/50_ep0.15_0_gilbert_8.in,3,0.06,0.032
+MCTS,instances/GBRL/100_r0.219_0_geom_2.gin,6,0.06,1.186
+MCTS,instances/GBRL/50_r0.259_0_geom_5.gin,13,0.26,0.373
+MCTS,instances/GBRL/50_ep0.25_0_gilbert_5.in,3,0.06,0.043
+MCTS,instances/GBRL/50_r0.259_0_geom_7.gin,40,0.8,0.027
+MCTS,instances/GBRL/100_ep0.1_0_gilbert_8.in,3,0.03,0.152
+MCTS,instances/GBRL/100_ep0.075_0_gilbert_7.in,4,0.04,0.849
+MCTS,instances/GBRL/50_ep0.15_0_gilbert_10.in,3,0.06,0.041
+MCTS,instances/GBRL/50_r0.259_0_geom_6.gin,5,0.1,0.353
+MCTS,instances/GBRL/100_r0.219_0_geom_1.gin,7,0.07,3.208
+MCTS,instances/GBRL/100_ep0.1_0_gilbert_3.in,3,0.03,0.144
+MCTS,instances/GBRL/100_r0.195_0_geom_10.gin,6,0.06,1.386
+MCTS,instances/GBRL/100_r0.195_0_geom_8.gin,10,0.1,12.541
+MCTS,instances/GBRL/50_r0.334_0_geom_8.gin,4,0.08,0.066
+MCTS,instances/GBRL/100_r0.169_0_geom_1.gin,92,0.92,0.11
+MCTS,instances/GBRL/50_r0.334_0_geom_9.gin,4,0.08,0.067
+MCTS,instances/GBRL/100_r0.195_0_geom_9.gin,6,0.06,1.26
+MCTS,instances/GBRL/50_ep0.15_0_gilbert_7.in,3,0.06,0.033
+MCTS,instances/GBRL/100_r0.219_0_geom_10.gin,7,0.07,2.538
+MCTS,instances/GBRL/50_ep0.2_0_gilbert_6.in,3,0.06,0.036
+MCTS,instances/GBRL/100_ep0.125_0_gilbert_1.in,3,0.03,0.134
+MCTS,instances/GBRL/100_ep0.075_0_gilbert_8.in,4,0.04,0.295
+MCTS,instances/GBRL/100_ep0.1_0_gilbert_7.in,4,0.04,0.322
+MCTS,instances/GBRL/100_r0.169_0_geom_3.gin,29,0.29,0.954
+MCTS,instances/GBRL/100_r0.169_0_geom_2.gin,21,0.21,1.713
+MCTS,instances/GBRL/100_ep0.125_0_gilbert_5.in,3,0.03,0.13
+MCTS,instances/GBRL/50_ep0.15_0_gilbert_3.in,4,0.08,0.08
+MCTS,instances/GBRL/50_ep0.2_0_gilbert_2.in,3,0.06,0.036
+MCTS,instances/GBRL/50_ep0.2_0_gilbert_10.in,3,0.06,0.044
+MCTS,instances/GBRL/100_ep0.075_0_gilbert_9.in,4,0.04,0.272
+MCTS,instances/GBRL/100_ep0.1_0_gilbert_6.in,3,0.03,0.169
+MCTS,instances/GBRL/100_r0.169_0_geom_6.gin,11,0.11,4.271
+MCTS,instances/GBRL/100_r0.169_0_geom_7.gin,8,0.08,7.223
+MCTS,instances/GBRL/100_ep0.125_0_gilbert_4.in,3,0.03,0.122
+MCTS,instances/GBRL/50_ep0.15_0_gilbert_2.in,4,0.08,0.067
+MCTS,instances/GBRL/50_ep0.2_0_gilbert_3.in,4,0.08,0.066
+MCTS,instances/GBRL/50_r0.299_0_geom_9.gin,5,0.1,0.138
+MCTS,instances/GBRL/100_ep0.1_0_gilbert_2.in,4,0.04,0.27
+MCTS,instances/GBRL/50_r0.259_0_geom_10.gin,7,0.14,0.4
+MCTS,instances/GBRL/100_ep0.075_0_gilbert_10.in,4,0.04,0.261
+MCTS,instances/GBRL/100_r0.169_0_geom_5.gin,9,0.09,9.797
+MCTS,instances/GBRL/100_r0.169_0_geom_4.gin,9,0.09,14.864
+MCTS,instances/GBRL/50_ep0.15_0_gilbert_6.in,3,0.06,0.055
+MCTS,instances/GBRL/50_ep0.2_0_gilbert_7.in,3,0.06,0.034
+MCTS,instances/GBRL/50_r0.334_0_geom_10.gin,3,0.06,0.039
+MCTS,instances/GBRL/50_r0.299_0_geom_8.gin,4,0.08,0.074
+MCTS,instances/GBRL/50_r0.299_0_geom_5.gin,4,0.08,0.106
+MCTS,instances/GBRL/100_ep0.1_0_gilbert_5.in,3,0.03,0.144
+MCTS,instances/GBRL/100_r0.195_0_geom_1.gin,6,0.06,1.336
+MCTS,instances/GBRL/50_ep0.25_0_gilbert_8.in,3,0.06,0.044
+MCTS,instances/GBRL/50_r0.334_0_geom_1.gin,3,0.06,0.037
+MCTS,instances/GBRL/100_r0.169_0_geom_9.gin,89,0.89,0.135
+MCTS,instances/GBRL/100_r0.169_0_geom_8.gin,14,0.14,3.689
+MCTS,instances/GBRL/100_ep0.1_0_gilbert_10.in,4,0.04,0.251
+MCTS,instances/GBRL/100_ep0.125_0_gilbert_7.in,3,0.03,0.118
+MCTS,instances/GBRL/50_ep0.15_0_gilbert_1.in,3,0.06,0.053
+MCTS,instances/GBRL/50_r0.299_0_geom_4.gin,47,0.94,0.011
+MCTS,instances/GBRL/100_ep0.1_0_gilbert_1.in,3,0.03,0.13
+MCTS,instances/GBRL/50_r0.299_0_geom_6.gin,5,0.1,0.163
+MCTS,instances/GBRL/100_r0.195_0_geom_2.gin,7,0.07,2.529
+MCTS,instances/GBRL/50_r0.334_0_geom_2.gin,5,0.1,0.143
+MCTS,instances/GBRL/50_r0.334_0_geom_3.gin,3,0.06,0.034
+MCTS,instances/GBRL/100_r0.195_0_geom_3.gin,9,0.09,10.611
+MCTS,instances/GBRL/50_ep0.2_0_gilbert_4.in,3,0.06,0.033
+MCTS,instances/GBRL/50_ep0.15_0_gilbert_5.in,4,0.08,0.066
+MCTS,instances/GBRL/100_ep0.125_0_gilbert_3.in,3,0.03,0.119
+MCTS,instances/GBRL/50_r0.299_0_geom_7.gin,5,0.1,0.146
+MCTS,instances/GBRL/50_r0.299_0_geom_3.gin,4,0.08,0.07
+MCTS,instances/GBRL/100_r0.195_0_geom_7.gin,8,0.08,6.408
+MCTS,instances/GBRL/50_r0.334_0_geom_7.gin,5,0.1,0.166
+MCTS,instances/GBRL/50_r0.334_0_geom_6.gin,3,0.06,0.037
+MCTS,instances/GBRL/100_r0.195_0_geom_6.gin,6,0.06,1.515
+MCTS,instances/GBRL/50_ep0.2_0_gilbert_5.in,3,0.06,0.033
+MCTS,instances/GBRL/50_ep0.15_0_gilbert_4.in,3,0.06,0.081
+MCTS,instances/GBRL/100_ep0.125_0_gilbert_2.in,3,0.03,0.15
+MCTS,instances/GBRL/50_r0.299_0_geom_2.gin,5,0.1,0.164
+MCTS,instances/GBRL/100_ep0.1_0_gilbert_4.in,3,0.03,0.126
+MCTS,instances/GBRL/100_r0.195_0_geom_4.gin,10,0.1,8.494
+MCTS,instances/GBRL/50_ep0.25_0_gilbert_9.in,2,0.04,0.034
+MCTS,instances/GBRL/50_r0.334_0_geom_4.gin,4,0.08,0.112
+MCTS,instances/GBRL/50_r0.334_0_geom_5.gin,4,0.08,0.11
+MCTS,instances/GBRL/100_r0.195_0_geom_5.gin,6,0.06,1.529
+MCTS,instances/GBRL/100_ep0.125_0_gilbert_6.in,3,0.03,0.121
+MCTS,instances/GBRL/50_ep0.2_0_gilbert_1.in,3,0.06,0.036
+MCTS,instances/GBRL/50_r0.299_0_geom_1.gin,9,0.18,0.074
+MCTS,instances/GBRL/50_ep0.25_0_gilbert_2.in,3,0.06,0.039
+MCTS,instances/GBRL/50_ep0.25_0_gilbert_6.in,2,0.04,0.015
+MCTS,instances/GBRL/50_r0.259_0_geom_8.gin,17,0.34,0.23
+MCTS,instances/GBRL/100_ep0.075_0_gilbert_4.in,4,0.04,0.316
+MCTS,instances/GBRL/100_ep0.125_0_gilbert_9.in,3,0.03,0.216
+MCTS,instances/GBRL/50_r0.259_0_geom_9.gin,8,0.16,0.109
+MCTS,instances/GBRL/50_ep0.25_0_gilbert_7.in,2,0.04,0.025
+MCTS,instances/GBRL/100_ep0.075_0_gilbert_5.in,4,0.04,0.347
+MCTS,instances/GBRL/100_ep0.125_0_gilbert_8.in,3,0.03,0.121
+MCTS,instances/GBRL/50_ep0.25_0_gilbert_10.in,3,0.06,0.036
+MCTS,instances/GBRL/100_r0.219_0_geom_9.gin,7,0.07,2.803
+MCTS,instances/GBRL/100_r0.169_0_geom_10.gin,9,0.09,8.927
+MCTS,instances/GBRL/50_ep0.25_0_gilbert_3.in,3,0.06,0.037
+MCTS,instances/GBRL/100_ep0.075_0_gilbert_1.in,4,0.04,0.369
+MCTS,instances/GBRL/100_r0.219_0_geom_8.gin,7,0.07,3.785

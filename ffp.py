@@ -909,8 +909,6 @@ print("Graph Used: " + fileName + "\n")
 
 # CSV WORKS
 # =====================
-runInstancesForHeuristics = True
-runInstancesForHyperHeuristics = True
 
 def runInstances(methods):
     for method in methods:
@@ -949,62 +947,8 @@ def runInstances(methods):
                         resultWriter.writerow([str(method.name) + "," + str(f) + "," + str(results[0]) + "," +
                                                    str(results[1]) + "," + str(round(end-start, 3))])
 
+# Heuristics.LDEG   Heuristics.GDEG
+# HyperHeuristics.AStar       HyperHeuristics.MCTS
+runInstances([Heuristics.LDEG, HyperHeuristics.AStar])
 
-runInstances([Heuristics.LDEG, Heuristics.GDEG, HyperHeuristics.AStar, HyperHeuristics.MCTS])
-
-
-# if runInstancesForHeuristics:
-#     for method in Heuristics:
-#         if method == method.RANDOM:
-#             continue
-#         with open('results/' + str(method.name) + '.csv', 'w', newline='') as csvfile:
-#             resultWriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-#
-#             directoryPath = "instances"
-#             for directory in os.listdir(directoryPath):
-#                 dir_ = os.path.join(directoryPath, directory)
-#
-#                 if not os.path.isdir(dir_):
-#                     continue
-#                 for filename in os.listdir(dir_):
-#                     f = os.path.join(dir_, filename)
-#                     if os.path.isfile(f):
-#                         problem = FFP(f)
-#                         start = time.time()
-#                         results = runHeuristic(problem, method)
-#                         end = time.time()
-#                         resultWriter.writerow([str(method.name) + "," + str(f) + "," + str(results[0]) + "," +
-#                                                str(results[1]) + "," + str(round(end-start, 3))])
-#
-# if runInstancesForHyperHeuristics:
-#     for method in HyperHeuristics:
-#         extra = None
-#         if method == HyperHeuristics.AStar:
-#             extra = weightsList
-#         elif method == HyperHeuristics.MCTS:
-#             extra = bias
-#         with open('results/' + str(method.name) + '.csv', 'w', newline='') as csvfile:
-#             resultWriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-#
-#             directoryPath = "instances"
-#             for directory in os.listdir(directoryPath):
-#                 dir_ = os.path.join(directoryPath, directory)
-#                 # if dir_ == os.path.join(directoryPath, "GBRL"):
-#                 #     continue
-#
-#                 if not os.path.isdir(dir_):
-#                     continue
-#                 for filename in os.listdir(dir_):
-#                     f = os.path.join(dir_, filename)
-#                     if "GBRL" in dir_ and ("1000" in f or "500" in f):
-#                         continue
-#                     if os.path.isfile(f):
-#                         print(f)
-#                         problem = FFP(f)
-#                         start = time.time()
-#                         results = runHyperHeuristic(method, ratesOfChange, heuristicsList, problem,
-#                                                     extra, DebugOptions.NONE, isPrint=False)
-#                         end = time.time()
-#                         resultWriter.writerow([str(method.name) + "," + str(f) + "," + str(results[0]) + "," +
-#                                                str(results[1]) + "," + str(round(end-start, 3))])
 
